@@ -1,9 +1,17 @@
-.country {
+.country-btn-grp {
     text-align:left;
 }
 
-.country i {
-    padding-right : 0.75em;
+.country-btn-grp i {
+    padding-right : 12px;
+}
+
+.cash-btn-grp {
+    text-align:left;
+}
+
+.cash-btn-grp i {
+    padding-right : 10px;
 }
 
 .share-item.selected a {

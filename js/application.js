@@ -3,10 +3,10 @@
     "use strict";
     
     var countries = [
-        {code: 'at', name: 'Austria'},
+        {code: 'at', name: 'Austria-Hungary'},
         {code: 'it', name: 'Italy'},
         {code: 'fr', name: 'France'},
-        {code: 'gb', name: 'Britain'},
+        {code: 'gb', name: 'Great Britain'},
         {code: 'de', name: 'Germany'},
         {code: 'ru', name: 'Russia'}
     ];
@@ -65,6 +65,8 @@
                 
             });
         });
+        
+        $('.cash-row').click(function(){return false;});
     }
     
     function initPlayers() {

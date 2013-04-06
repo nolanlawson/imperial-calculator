@@ -11,6 +11,7 @@
 		<link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 		<link href="../css/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
 		<link href="../css/flags.css" rel="stylesheet" type="text/css">
+		<link href="../css/famfamfam/css/famfamfam.css" rel="stylesheet" type="text/css">
 		<link href="../css/application.css" rel="stylesheet" type="text/css">
 		
 		<style type="text/css">
@@ -100,6 +101,21 @@
 				<div class="span3 tmpl-country">
 				</div>
 			</div>
+			<div class="row cash-row">
+				<div class="span3">
+					<div class="btn-group">
+						<button class="cash-btn-grp btn span2" href='#' type="button">
+								<i class="famfamfam famfamfam-money icon-align-left"></i>
+								<span>Cash on hand</span>
+						</button>
+						<button class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
+
+								<span class="multiplier" multiplier-value="0">x1</span>
+								<span class="caret"></span>
+						</button>
+					</div>
+				</div>
+			</div>
 
 						
 		</div><!-- /container -->
@@ -124,9 +140,9 @@
 
 		<script type="text/template" id="country">
 			<div class="country-container btn-group">
-				<button class="btn country dropdown-toggle span2" data-toggle="dropdown" href='#' type="button">
-						<i class="flag flag-{0} icon-align-left pull-left"></i>
-						<span class="pull-left">{1}</span>
+				<button class="btn country country-btn-grp dropdown-toggle span2" data-toggle="dropdown" href='#' type="button">
+						<i class="flag flag-{0} icon-align-left"></i>
+						<span>{1}</span>
 				</button>
 				<button class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
 						
