@@ -17,3 +17,7 @@
 .share-item.selected a {
     font-weight : bold;
 }
+
+footer {
+    margin: 5em 2em;
+}

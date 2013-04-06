@@ -59,9 +59,10 @@
                 
                 e.preventDefault();
                 
-                var multiplier = $(this).attr('multiplier-value');
+                var multiplier = parseInt($(this).attr('multiplier-value'), 10);
                 country.multiplier = multiplier;
                 formatCountry(country, element);
+                updatePlayerSum();
                 
             });
         });
@@ -129,13 +130,14 @@
                     var sumValue = 0;
                     
                     $(this).parent().find('.share-item.selected').each(function(i, shareElement){
-                        sumValue += parseInt($(shareElement).attr('share-value'));
+                        sumValue += parseInt($(shareElement).attr('share-value'), 10);
                     });
                     
                     newPlayer.shares[country.name] = sumValue;
                     
                     playerShare.find('.share-dropdown-button').text(sumValue + 'mil');
                     
+                    updatePlayerSum();
                 });
                 
                 playerShare.find('.share-done').click(function(e) {
@@ -143,6 +145,15 @@
                 });
                 
             });
+            
+            $('.cash-row').append($('#cash-on-hand').html());
+            
+            $('.cash-row').find(':last-child').find('input').on('change', function() {
+                newPlayer.cash = parseInt($(this).val(), 10);
+                updatePlayerSum();
+            });
+            
+            $('.sum-row').append($('#sum').html());
             
             formatPlayers();
         });
@@ -155,10 +166,33 @@
         
     }
     
+    function updatePlayerSum() {
+        var sumDisplays = $('.sum-row').children();
+        for (var i = 0; i < players.length; i++) {
+            var player = players[i];
+            
+            var sumDisplay = sumDisplays.get(i + 1);
+            
+            var sum = 0;
+            
+            for (var j = 0; j < countries.length ; j++) {
+                var country = countries[j];
+                
+                sum += ((country.multiplier || 0) * (player.shares[country.name] || 0));
+            }
+            
+            sum += (player.cash || 0);
+            
+            $(sumDisplay).text(sum + 'mil');
+            
+        }
+    }
+    
     
     initTabs();
     initCountries();
     initPlayers();
+    updatePlayerSum();
     
     
 })(jQuery);
