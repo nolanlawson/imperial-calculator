@@ -16,6 +16,7 @@ function ImperialController($scope, $location) {
 	$scope.possibleMultipliers = [0,1,2,3,4,5];
 	
 	$scope.players = [];
+	$scope.unranked = true;
 	
 	$scope.countries = [
         {id: 'at', name: 'Austria-Hungary'},
@@ -64,7 +65,7 @@ function ImperialController($scope, $location) {
             name   : '',
             shares : [],
             cash   : '',
-            rank   : {unranked : true}
+            rank   : {}
         });
     };
     
@@ -122,9 +123,7 @@ function ImperialController($scope, $location) {
         var i;
         
         // clear present values
-        for (i = 0; i < $scope.players.length; i++) {
-            $scope.players[i].rank = {unranked : true};
-        }
+        $scope.unranked = true;
         
         if ($scope.players.length < 2) {
             // no interest in calculating this yet
@@ -177,7 +176,6 @@ function ImperialController($scope, $location) {
         var lastRankedIndex = -1;
         for (i = 0; i < rankedPlayers.length; i++) {
             var player = rankedPlayers[i];
-            player.rank.unranked = false;
             
             // determine rank order while maintaining ties
             if (player.score === topScore) {
@@ -197,6 +195,7 @@ function ImperialController($scope, $location) {
                 player.rank.middle = true;
             }
         }
+        $scope.unranked = false;
     }
 }
 
