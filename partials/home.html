@@ -16,36 +16,45 @@
 			</div>
 			<div class="row">
 				<div class="span3"></div>
-				<div class="span1 player-name"><input class="span1" type="text" placeholder="Player 1"/></div>
-				<div class="span1 player-name"><input class="span1" type="text" placeholder="Player 2"/></div>
-				<div class="span1 player-name"><input class="span1" type="text" placeholder="Player 3"/></div>
-				<div class="span1 player-name"><input class="span1" type="text" placeholder="Player 4"/></div>
-				<div class="span1 player-name"><input class="span1" type="text" placeholder="Player 5"/></div>
-				<div class="span1 player-name"><input class="span1" type="text" placeholder="Player 6"/></div>
-				<button class="span2 btn btn-primary add-player" href='#'>Add Player</button>
-			</div>
-			<div class="row country-row">
-				<div class="span3 tmpl-country">
+				<div ng-repeat="player in players" class="span1 player-name">
+					<input class="span1 player-input" type="text" ng-model="player.name" placeholder="Player {{player.id + 1}}"/>
 				</div>
+				<button class="span2 btn btn-primary add-player" ng-show="players.length < 6" ng-click="addPlayer()" href='#'>Add Player</button>
 			</div>
-			<div class="row country-row">
+			<div ng-repeat="country in countries" class="row country-row">
 				<div class="span3 tmpl-country">
+					<div class="country-container btn-group">
+						<button class="btn country country-btn-grp dropdown-toggle span2" data-toggle="dropdown" href='#' type="button">
+								<i class="flag flag-{{country.id}} icon-align-left"></i>
+								<span>{{country.name}}</span>
+						</button>
+						<button class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
+
+								<span class="multiplier">x{{country.multiplier}}</span>
+								<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu pull-right">
+							<li ng-repeat="possibleMultiplier in possibleMultipliers">
+								<a href='#' ng-click="country.multiplier = possibleMultiplier">x{{possibleMultiplier}}</a>
+							</li>
+						</ul>
+						
+					</div>
 				</div>
-			</div>
-			<div class="row country-row">
-				<div class="span3 tmpl-country">
-				</div>
-			</div>
-			<div class="row country-row">
-				<div class="span3 tmpl-country">
-				</div>
-			</div>
-			<div class="row country-row">
-				<div class="span3 tmpl-country">
-				</div>
-			</div>
-			<div class="row country-row">
-				<div class="span3 tmpl-country">
+				<div ng-repeat="player in players" class="span1">
+					<div class="btn-group"> 
+					<button href='#' class="btn span1 dropdown-toggle share-dropdown-button" data-toggle="dropdown">{{sumSharesInCountry(player,country.id)}}mil</button>
+					<ul class="dropdown-menu share-dropdown">
+						<li ng-click="toggleShareInPlayer(player, country.id, possibleShare)" ng-repeat="possibleShare in possibleShares" class="share-item">
+							<a href='#'>
+								<i class="{{player.shares[country.id][possibleShare] && 'icon-ok' || 'icon-none'}}" class="icon-none"></i>
+								<span ng-class="{selected: player.shares[country.id][possibleShare]}">{{possibleShare}}mil<span>
+							</a>
+						</li>
+						<li class="divider"></li>
+						<li class="share-done"><a href='#'>Done</a></li>
+					</ul>
+					</div>
 				</div>
 			</div>
 			<div class="row cash-row">
@@ -62,9 +71,16 @@
 						</button>
 					</div>
 				</div>
+				<div ng-repeat="player in players" class="span1">
+					<input type="number" min="0" class="span1" placeholder="0mil" ng-model="player.cash" 
+							ngPattern="[0-9]+" style="text-align:center;"></input>
+				</div>
 			</div>
 			<div class="row sum-row">
 				<div class="span3">Sum</div>
+				<div ng-repeat="player in players" class="span1" style="text-align:center;">
+					{{calculateScore(player)}}mil
+				</div>
 			</div>
 
 						

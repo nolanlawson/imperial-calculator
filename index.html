@@ -14,7 +14,7 @@
 		<link href="css/famfamfam/css/famfamfam.css" rel="stylesheet" type="text/css">
 		<link href="css/application.css" rel="stylesheet" type="text/css">
 		<script src="http://code.angularjs.org/1.1.4/angular.min.js"></script>
-		<script src="js/app.js"></script>
+		<script src="js/application.js"></script>
 		<script src="js/controllers.js"></script>
 		<style type="text/css">
 	body {
@@ -52,59 +52,7 @@
 		<footer>
 			<small class="pull-right">Created by Nolan Lawson.</small>
 		</footer>
-		
 
-		<script type="text/template" id="country">
-			<div class="country-container btn-group">
-				<button class="btn country country-btn-grp dropdown-toggle span2" data-toggle="dropdown" href='#' type="button">
-						<i class="flag flag-{0} icon-align-left"></i>
-						<span>{1}</span>
-				</button>
-				<button class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
-						
-						<span class="multiplier" multiplier-value="0">x{2}</span>
-						<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu pull-right">
-					<li><a href='#' multiplier-value="0">x0</a></li>
-					<li><a href='#' multiplier-value="1">x1</a></li>
-					<li><a href='#' multiplier-value="2">x2</a></li>
-					<li><a href='#' multiplier-value="3">x3</a></li>
-					<li><a href='#' multiplier-value="4">x4</a></li>
-					<li><a href='#' multiplier-value="5">x5</a></li>
-				</ul>
-			</div>
-		</script>
-		
-		<script type="text/template" id="player-share">
-			<div class="span1">
-				<div class="btn-group"> 
-				<button href='#' class="btn span1 dropdown-toggle share-dropdown-button" data-toggle="dropdown">{1}mil</button>
-				<ul class="dropdown-menu share-dropdown">
-					<li class="divider"></li>
-					<li class="share-done"><a href='#'>Done</a></li>
-				</ul>
-				</div>
-			</div>
-		</script>
-		<script type="text/template" id="cash-on-hand">
-			<div class="span1">
-				<input type="text" class="span1" placeholder="0mil" style="text-align:center;"></input>
-			</div>
-		</script>
-		<script type="text/template" id="sum">
-			<div class="span1" style="text-align:center;">
-				0mil
-			</div>
-		</script>
-		<script type="text/template" id="share-item">
-			<li class="share-item" share-value="{0}">
-				<a href='#'>
-					<i class="icon-none share-check"></i>
-					<span>{0}mil<span>
-				</a>
-			</li>
-		</script>
 		<script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
 		<script src="js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
 		<!--script src="js/jquery.ba-bbq.min.js" type="text/javascript"></script-->
