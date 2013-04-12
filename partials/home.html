@@ -82,8 +82,8 @@
 	<div class="row">
 		<div class="span3"></div>
 		<div ng-repeat="player in players" class="span1">
-			<span ng-hide="player.rank.unranked" class="label ranking-label" ng-class="{'label-success':player.rank.first, 'label-important':player.rank.last, 'label-info':player.rank.middle}">
-				{{!player.rank.unranked && '#' + (player.rank.order + 1) || ''}}
+			<span ng-hide="player.rank.unranked === true" class="label ranking-label" ng-class="{'label-success':player.rank.first, 'label-important':player.rank.last, 'label-info':player.rank.middle}">
+				#{{(player.rank.order + 1)}}
 			</span>
 		</div>
 	</div>
