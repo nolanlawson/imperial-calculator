@@ -40,12 +40,12 @@
 		</div>
 		<div ng-repeat="player in players" class="span1">
 			<div class="btn-group"> 
-			<button href='#' class="btn span1 dropdown-toggle share-dropdown-button" data-toggle="dropdown">{{sumSharesInCountry(player,country.id)}}mil</button>
+			<button href='#' class="btn span1 dropdown-toggle share-dropdown-button" data-toggle="dropdown">{{sumSharesInCountry(player,country)}} mil</button>
 			<ul class="dropdown-menu share-dropdown">
-				<li ng-repeat="possibleShare in possibleShares" ng-class="{disabled: checkOwnedByAnotherPlayer(player, country.id, possibleShare)}" class="share-item">
-					<a href='#' ng-click="toggleShareInPlayer(player, country.id, possibleShare); $event.preventDefault(); $event.stopPropagation()">
-						<i ng-class="{true: 'icon-ok', false: 'icon-none'}[player.shares[country.id][possibleShare] != null]"></i>
-						<span ng-class="{selected: player.shares[country.id][possibleShare]}">{{possibleShare}}mil<span>
+				<li ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player}" class="share-item">
+					<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">
+						<i ng-class="{true: 'icon-ok', false: 'icon-none'}[share.player == player]"></i>
+						<span ng-class="{selected: share.player == player}">{{share.value}} mil<span>
 					</a>
 				</li>
 				<li class="divider"></li>
@@ -69,14 +69,14 @@
 			</div>
 		</div>
 		<div ng-repeat="player in players" class="span1">
-			<input type="number" min="0" class="span1" placeholder="0mil" ng-model="player.cash" 
+			<input type="number" min="0" class="span1" placeholder="0 mil" ng-model="player.cash" 
 					ngPattern="[0-9]+" style="text-align:center;"></input>
 		</div>
 	</div>
 	<div class="row sum-row">
 		<div class="span3"><h4>Total</h4></div>
 		<div ng-repeat="player in players" class="span1" style="text-align:center;">
-			<strong>{{calculateScore(player)}}mil</strong>
+			<strong>{{calculateScore(player)}} mil</strong>
 		</div>
 	</div>
 </div><!-- /container -->

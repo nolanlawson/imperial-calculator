@@ -1,5 +1,12 @@
+/*
+ * AngularJS Controllers for the Imperial Score Calculator app.
+ */
+/*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, noarg:true, noempty:true, nonew:true, undef:true, strict:true, browser:true */
+
 function ImperialController($scope, $location) {
     "use strict";
+    
+    var i;
 	
 	$scope.appVersion = '1.0';
 	
@@ -8,21 +15,24 @@ function ImperialController($scope, $location) {
 	
 	$scope.possibleMultipliers = [0,1,2,3,4,5];
 	
-	$scope.possibleShares = [1,2,3,4,5,6,7,8,9];
-	
 	$scope.countries = [
-        {id: 'at', multiplier : 0, name: 'Austria-Hungary'},
-        {id: 'it', multiplier : 0, name: 'Italy'},
-        {id: 'fr', multiplier : 0, name: 'France'},
-        {id: 'gb', multiplier : 0, name: 'Great Britain'},
-        {id: 'de', multiplier : 0, name: 'Germany'},
-        {id: 'ru', multiplier : 0, name: 'Russia'}
+        {id: 'at', name: 'Austria-Hungary'},
+        {id: 'it', name: 'Italy'},
+        {id: 'fr', name: 'France'},
+        {id: 'gb', name: 'Great Britain'},
+        {id: 'de', name: 'Germany'},
+        {id: 'ru', name: 'Russia'}
     ];
     
-    $scope.countriesHash = {};
-    for (var i = 0; i < $scope.countries.length; i++) {
-        var country = $scope.countries[i];
-        $scope.countriesHash[country.id] = country;
+    for (i = 0; i < $scope.countries.length; i++) {
+        var thisCountry = $scope.countries[i];
+        thisCountry.multiplier = 0;
+        thisCountry.shares = [];
+        
+        for (var j = 1; j <= 9; j++) {
+            // possible share values
+            thisCountry.shares.push({ value : j, country : thisCountry});
+        }
     }
     
     $scope.players = [];
@@ -31,67 +41,51 @@ function ImperialController($scope, $location) {
         $scope.players.push({
             id     : $scope.players.length,
             name   : '',
-            shares : {},
+            shares : [],
             cash   : ''
         });
     };
     
-    $scope.sumSharesInCountry = function(player,countryId) {
+    $scope.sumSharesInCountry = function(player, country) {
          var sum = 0;
-         if (player.shares[countryId]) {
-             for (var amount in player.shares[countryId]) {
-                 sum += parseInt(amount, 10);
+         for (var i = 0; i < player.shares.length; i++) {
+             var share = player.shares[i];
+             if (share.country === country) {
+                 sum += player.shares[i].value;
              }
-         
          }
          return sum;    
     };
     
-    $scope.toggleShareInPlayer = function(player, countryId, amount) {
+    $scope.toggleShareInPlayer = function(player, share) {
         
-        if ($scope.checkOwnedByAnotherPlayer(player, countryId, amount)) {
-            return; // do nothing; someone else owns it
+        if (!share.player) {
+            // nobody owns it yet, so add it
+            share.player = player;
+            player.shares.push(share);
+        } else if (share.player === player) {
+            // already own it, so delete it
+            share.player = null;
+            
+            // stupid javascript array.remove(obj) implementation
+            for (var i = 0; i < player.shares.length; i++) {
+                if (player.shares[i] === share) {
+                    player.shares = player.shares.slice(0, i).concat(player.shares.slice(i + 1, player.shares.length));
+                    break;
+                }
+            }
         }
-        
-        if (!player.shares[countryId]) {
-            // new
-            player.shares[countryId] = {};
-        }
-        
-        if (player.shares[countryId][amount]) {
-            // delete
-            delete player.shares[countryId][amount];
-        } else {
-            // add
-            player.shares[countryId][amount] = true;
-        }
+        // else do nothing; someone else owns it
     };
     
     $scope.calculateScore = function(player) {
         var sum = player.cash || 0;
-        for (var countryId in player.shares) {
+        for (var i = 0; i < player.shares.length; i++) {
+            var share = player.shares[i];
             
-            // todo: hash lookup
-            var country = $scope.countriesHash[countryId];
-            
-            for (var countryShare in player.shares[countryId]) {
-                sum += countryShare * country.multiplier;
-            }
+            sum += share.value * share.country.multiplier;
         }
         return sum;
-    };
-    
-    $scope.checkOwnedByAnotherPlayer = function(player, countryId, amount) {
-        
-        for (var i = 0; i < $scope.players.length; i++) {
-            var otherPlayer = $scope.players[i];
-            if (otherPlayer.id === player.id) {
-                continue;
-            } else if (otherPlayer.shares[countryId] && otherPlayer.shares[countryId][amount]) {
-                return true;
-            }
-        }
-        return false;
     };
 }
 
