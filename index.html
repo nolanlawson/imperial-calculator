@@ -36,10 +36,10 @@
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<div type="div" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></div> <a class="brand" href="#home">Imperial Score Calculator</a>
+					<div type="div" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></div> <a class="brand" href="#/home" ng-click="selectedTabId = 'home'">Imperial Score Calculator</a>
 					<div class="nav-collapse collapse">
 						<ul class="nav">
-                                                        <li ng-click="selectTab(tab.id)" ng-repeat="tab in tabs" ng-class="{active: tab.id == selectedTabId}">
+                            <li ng-click="$parent.selectedTabId = tab.id" ng-repeat="tab in tabs" ng-class="{active: tab.id == $parent.selectedTabId}">
 
 								<a href="#{{tab.id}}">{{tab.title}}</a>
 						</ul>
@@ -48,10 +48,9 @@
 			</div>
 		</div>
 		
-	<div ng-view></div>	
+	    <div ng-view></div>	
 		<footer>
 			<small class="pull-right">Created by Nolan Lawson.</small>
-			
 		</footer>
 		
 
