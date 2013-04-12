@@ -27,6 +27,13 @@
     
 }
 
+footer {
+    margin: 1em 2em 1em 2em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
 .country-btn-grp {
     text-align:left;
 }
@@ -45,10 +52,6 @@
 
 .share-item.selected a {
     font-weight : bold;
-}
-
-footer {
-    margin: 5em 2em;
 }
 
 .player-input {
