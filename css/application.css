@@ -13,28 +13,3 @@
 .cash-btn-grp i {
     padding-right : 10px;
 }
-
-footer {
-margin: 1em 2em 1em 2em;
-position: absolute;
-bottom: 0;
-right: 0;
-}
-.row.country-row {
-    padding-bottom : 0.9em !important;
-}
-.share-item.selected a {
-    font-weight : bold;
-}
-
-.ranking-label {
-    width: 100%;
-    text-align: center;
-    font-size: 1.2em;
-    line-height: 1.2em;
-	font-weight : normal !important;
-}
-
-.score-label {
-    text-align : center;
-}
