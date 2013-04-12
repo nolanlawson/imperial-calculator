@@ -34,6 +34,10 @@ footer {
     right: 0;
 }
 
+.country-row {
+    padding-bottom : 0.9em;
+}
+
 .country-btn-grp {
     text-align:left;
 }
@@ -56,8 +60,4 @@ footer {
 
 .player-input {
     width: 100% !important;
-}
-
-.sum-span {
-    text-align : center !important;
 }

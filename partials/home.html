@@ -1,7 +1,4 @@
 <div class="tab-content container">
-			<h1>
-				Imperial Score Calculator
-			</h1>
 			<p>
 				<a href='http://boardgamegeek.com/boardgame/24181/imperial' target='_blank'>Imperial</a> is a board game created by Mac Gerdts.<br>
 				Use this tool to calculate players' scores at the end of the game.
@@ -45,8 +42,8 @@
 					<div class="btn-group"> 
 					<button href='#' class="btn span1 dropdown-toggle share-dropdown-button" data-toggle="dropdown">{{sumSharesInCountry(player,country.id)}}mil</button>
 					<ul class="dropdown-menu share-dropdown">
-						<li ng-click="toggleShareInPlayer(player, country.id, possibleShare)" ng-repeat="possibleShare in possibleShares" class="share-item">
-							<a href='#'>
+						<li ng-repeat="possibleShare in possibleShares" class="share-item">
+							<a href='#' ng-click="toggleShareInPlayer(player, country.id, possibleShare); $event.preventDefault(); $event.stopPropagation()">
 								<i class="{{player.shares[country.id][possibleShare] && 'icon-ok' || 'icon-none'}}" class="icon-none"></i>
 								<span ng-class="{selected: player.shares[country.id][possibleShare]}">{{possibleShare}}mil<span>
 							</a>
@@ -64,7 +61,7 @@
 								<i class="famfamfam-money icon-align-left"></i>
 								<span>Cash on hand</span>
 						</button>
-						<button class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
+						<button class="btn dropdown-toggle" href='#' type="button">
 
 								<span class="multiplier" multiplier-value="0">x1</span>
 								<span class="caret"></span>
@@ -77,9 +74,9 @@
 				</div>
 			</div>
 			<div class="row sum-row">
-				<div class="span3">Sum</div>
+				<div class="span3"><h4>Total</h4></div>
 				<div ng-repeat="player in players" class="span1" style="text-align:center;">
-					{{calculateScore(player)}}mil
+					<strong>{{calculateScore(player)}}mil</strong>
 				</div>
 			</div>
 
