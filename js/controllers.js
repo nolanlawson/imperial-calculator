@@ -180,19 +180,16 @@ function ImperialController($scope, $location) {
             // determine rank order while maintaining ties
             if (player.score === topScore) {
                 // first
-                player.rank.first = true;
-                player.rank.order = 0;
+                player.rank = {first : true, order : 0};
             } else if (player.score === bottomScore) {
                 // last
                 if (lastRankedIndex === -1) {
                     lastRankedIndex = i;
                 }
-                player.rank.last = true;
-                player.rank.order = lastRankedIndex;
+                player.rank = {last : true, order : lastRankedIndex};
             } else {
                 // middle
-                player.rank.order = i;
-                player.rank.middle = true;
+                player.rank = {middle : true, order : i};
             }
         }
         $scope.unranked = false;
