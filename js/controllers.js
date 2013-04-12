@@ -1,6 +1,8 @@
 function ImperialController($scope, $location) {
     "use strict";
 	
+	$scope.appVersion = '1.0';
+	
 	$scope.tabs = [{id : 'home', title : 'Home'},{id : 'about', title : 'About'}, {id : 'contact', title: 'Contact'}];
 	$scope.selectedTabId = $location.path() === '/contact' ? 'contact' : $location.path() === '/about' ? 'about' : 'home';
 	
