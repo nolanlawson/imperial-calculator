@@ -49,6 +49,10 @@ function ImperialController($scope, $location) {
     
     $scope.toggleShareInPlayer = function(player, countryId, amount) {
         
+        if ($scope.checkOwnedByAnotherPlayer(player, countryId, amount)) {
+            return; // do nothing; someone else owns it
+        }
+        
         if (!player.shares[countryId]) {
             // new
             player.shares[countryId] = {};
@@ -75,6 +79,19 @@ function ImperialController($scope, $location) {
             }
         }
         return sum;
+    };
+    
+    $scope.checkOwnedByAnotherPlayer = function(player, countryId, amount) {
+        
+        for (var i = 0; i < $scope.players.length; i++) {
+            var otherPlayer = $scope.players[i];
+            if (otherPlayer.id === player.id) {
+                continue;
+            } else if (otherPlayer.shares[countryId] && otherPlayer.shares[countryId][amount]) {
+                return true;
+            }
+        }
+        return false;
     };
 }
 

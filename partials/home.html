@@ -42,7 +42,7 @@
 			<div class="btn-group"> 
 			<button href='#' class="btn span1 dropdown-toggle share-dropdown-button" data-toggle="dropdown">{{sumSharesInCountry(player,country.id)}}mil</button>
 			<ul class="dropdown-menu share-dropdown">
-				<li ng-repeat="possibleShare in possibleShares" class="share-item">
+				<li ng-repeat="possibleShare in possibleShares" ng-class="{disabled: checkOwnedByAnotherPlayer(player, country.id, possibleShare)}" class="share-item">
 					<a href='#' ng-click="toggleShareInPlayer(player, country.id, possibleShare); $event.preventDefault(); $event.stopPropagation()">
 						<i ng-class="{true: 'icon-ok', false: 'icon-none'}[player.shares[country.id][possibleShare] != null]"></i>
 						<span ng-class="{selected: player.shares[country.id][possibleShare]}">{{possibleShare}}mil<span>
