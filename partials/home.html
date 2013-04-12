@@ -44,7 +44,7 @@
 			<ul class="dropdown-menu share-dropdown">
 				<li ng-repeat="possibleShare in possibleShares" class="share-item">
 					<a href='#' ng-click="toggleShareInPlayer(player, country.id, possibleShare); $event.preventDefault(); $event.stopPropagation()">
-						<i class="{{player.shares[country.id][possibleShare] && 'icon-ok' || 'icon-none'}}" class="icon-none"></i>
+						<i ng-class="{true: 'icon-ok', false: 'icon-none'}[player.shares[country.id][possibleShare] != null]"></i>
 						<span ng-class="{selected: player.shares[country.id][possibleShare]}">{{possibleShare}}mil<span>
 					</a>
 				</li>
