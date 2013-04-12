@@ -21,7 +21,7 @@
 		/* Large desktop */
 		@media (min-width: 1000px) {
 				body {
-						padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+						padding-top: 90px; /* 60px to make the container go all the way to the bottom of the topbar */
 		        	}    
 		}
 
@@ -87,7 +87,7 @@
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<div type="div" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></div> <a class="brand" href="#/home" ng-click="selectedTabId = 'home'">Imperial Score Calculator</a>
+					<a class="brand main-logo" href="#/home" ng-click="selectedTabId = 'home'">Imperial Score Calculator</a>
 					<div class="ng-cloak nav-collapse collapse">
 						<ul class="nav">
                             <li ng-click="$parent.selectedTabId = tab.id" ng-repeat="tab in tabs" ng-class="{active: tab.id == $parent.selectedTabId}">

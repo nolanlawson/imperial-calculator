@@ -13,3 +13,9 @@
 .cash-btn-grp i {
     padding-right : 10px;
 }
+
+.navbar .brand.main-logo {
+    padding-left: 50px;
+    margin-left: 0px;
+    background: url(../img/swiss_bank.png) left no-repeat;
+}
