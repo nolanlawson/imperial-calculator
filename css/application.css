@@ -13,22 +13,3 @@
 .cash-btn-grp i {
     padding-right : 10px;
 }
-
-.share-item.selected a {
-    font-weight : bold;
-}
-
-.player-input {
-    width: 100% !important;
-}
-
-.ranking-label {
-    width: 100%;
-    text-align: center;
-    font-size: 1.2em;
-    line-height: 1.2em;
-}
-
-.score-label {
-    text-align : center;
-}
