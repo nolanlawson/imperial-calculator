@@ -5,6 +5,7 @@
 	</p>
 	
 	<table class="fixed" style="width:100%;" cellpadding="2px">
+		<col width="100px"/>
 		<tr>
 			<th>Players&nbsp;&nbsp;&nbsp;</th>
 			<th colspan="6">Countries</th>
@@ -12,7 +13,7 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td align="center"  class="fixed" ng-repeat="country in countries" style="padding: 10px 0 10px 0;">
+			<td align="center"  class="fixed" ng-repeat="country in countries" style="padding: 10px 0 30px 0;">
 				<i class="flag flag-{{country.id}} icon-align-left"></i>
 			</td>
 			<td></td>
@@ -20,15 +21,15 @@
 		<tr>
 			<td></td>
 			<td class="vertical-td fixed" ng-repeat="country in countries">
-				<p class="vertical-text" style="padding-left:20px;"><span fix-vertical-text="country">{{country.abbrevName}}</span></p>
+				<p class="vertical-text"><span fix-vertical-text="country">{{country.abbrevName}}</span></p>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td align="center" class="contains-dropdown" ng-repeat="country in countries">
-				<div class="btn-group contains-dropdown">
-					<button class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
+				<div style="width: 100%;" class="btn-group contains-dropdown">
+					<button style="width: 100%;" class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
 							<span class="multiplier">×{{country.multiplier}}</span>
 							<span class="caret"></span>
 					</button>
@@ -39,37 +40,45 @@
 					</ul>
 				</div>
 			</td>
-			<td align="center"></td>
+			<td></td>
 		</tr>
-		<tr ng-repeat="player in players">
-			<td>
-				<input style="text-align:center;" class="span1 player-input" type="text" ng-model="player.name" placeholder="Player {{player.id + 1}}"/>
-				<input type="number" min="0" class="span1" placeholder="Cash" ng-model="player.cash" 
-					ngPattern="[0-9]+" style="text-align:center;"></input>
-			</td>
-			<td align="center" class="contains-dropdown" ng-repeat="country in countries">
-				<div class="btn-group  contains-dropdown"> 
-					<button href='#' class="btn dropdown-toggle" data-toggle="dropdown">{{sumSharesInCountry(player,country)}}
-						<span class="caret"></span></button>
-					<ul class="dropdown-menu dropdown-menu-small">
-						<li ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player, selected: share.player == player}">
-							<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">
-								<i ng-class="{true: 'icon-ok', false: 'icon-none'}[share.player == player]"></i>
-								<span>{{share.value}} mil<span>
-							</a>
-						</li>
-						<li class="divider"></li>
-						<li class="share-done"><a href='#'>Done</a></li>
-					</ul>
-				</div>
-			</td>
-			<td align="center">
-				<span ng-hide="unranked" class="label ranking-label" ng-class="{'label-success':player.rank.first, 'label-important':player.rank.last, 'label-info':player.rank.middle}">
-					#{{(player.rank.order + 1)}}
-				</span>
-				<strong>{{player.score}} mil</strong>
-			</td>
-		</tr>
+		<tbody ng-repeat="player in players">
+			<tr>
+				<td valign="center" align="center">
+					<input style="text-align:center;" class="span1 player-input" type="text" ng-model="player.name" placeholder="Player {{player.id + 1}}"/>
+				</td>
+				<td rowspan="2" align="center" class="contains-dropdown" ng-repeat="country in countries">
+					<div style="width: 100%;" class="btn-group contains-dropdown"> 
+						<button style="width: 100%;" href='#' class="btn dropdown-toggle" data-toggle="dropdown">{{sumSharesInCountry(player,country)}}
+							<span class="caret"></span></button>
+						<ul class="dropdown-menu dropdown-menu-small">
+							<li ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player, selected: share.player == player}">
+								<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">
+									<i ng-class="{true: 'icon-ok', false: 'icon-none'}[share.player == player]"></i>
+									<span>{{share.value}} mil<span>
+								</a>
+							</li>
+							<li class="divider"></li>
+							<li class="share-done"><a href='#'>Done</a></li>
+						</ul>
+					</div>
+				</td>
+				<td valign="top" align="center">
+					<span ng-hide="unranked" class="label ranking-label" ng-class="{'label-success':player.rank.first, 'label-important':player.rank.last, 'label-info':player.rank.middle}">
+						#{{(player.rank.order + 1)}}
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td valign="center" align="center">
+					<input style="text-align:center;" type="number" min="0" class="span1" placeholder="Cash" ng-model="player.cash"ngPattern="[0-9]+" style="text-align:center;"></input>
+				</td>
+				<td valign="top" align="center">
+					<strong>{{player.score}} mil</strong>
+				</td>
+
+			</tr>
+		</tbody>
 		<tr ng-show="players.length < 6">
 			<td>
 				<button class="span2 btn btn-primary add-player" ng-click="addPlayer()" href='#'>
@@ -88,7 +97,7 @@
 		</tr>
 		<tr ng-hide="unranked" style="width:100%;text-align:center;">
 			<td colspan="8">
-				<span><strong>Result:</strong> {{getFinalRankingText()}}</span>
+				<span class="label label-info"><h5>Result: {{getFinalRankingText()}}</h5></span>
 			</td>
 		</tr>
 	</table>
