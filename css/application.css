@@ -29,3 +29,15 @@ table.fixed td.vertical-td {
     vertical-align: top;
     overflow : visible;
 }
+
+table.fixed td.contains-dropdown {
+    overflow: visible;
+}
+
+.contains-dropdown {
+    overflow: visible;
+}
+
+.dropdown-menu.dropdown-menu-small {
+    min-width: 100px;
+}

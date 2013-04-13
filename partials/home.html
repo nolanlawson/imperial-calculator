@@ -25,11 +25,11 @@
 						<i class="flag flag-{{country.id}} icon-align-left"></i>
 						<span>{{country.name}}</span>
 						<span class="caret pull-right"></span>
-						<span class="multiplier pull-right">&nbsp;x{{country.multiplier}}&nbsp;</span>
+						<span class="multiplier pull-right">&nbsp;×{{country.multiplier}}&nbsp;</span>
 				</button>
 				<ul class="dropdown-menu pull-right">
 					<li ng-repeat="possibleMultiplier in possibleMultipliers">
-						<a href='#' ng-click="country.multiplier = possibleMultiplier">x{{possibleMultiplier}}</a>
+						<a href='#' ng-click="country.multiplier = possibleMultiplier">×{{possibleMultiplier}}</a>
 					</li>
 				</ul>
 				
