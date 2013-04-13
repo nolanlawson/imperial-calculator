@@ -120,8 +120,7 @@ function ImperialController($scope, $location) {
             return firsts[0] + " wins!";
         }
         
-        return firsts.join(' and ') + " tie for first.  Break ties based on " + 
-                "the number of shares in the highest-value countries.";
+        return firsts.join(' and ') + " tie for first.";
     };
     
     
