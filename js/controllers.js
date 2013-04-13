@@ -101,6 +101,29 @@ function ImperialController($scope, $location) {
         // else do nothing; someone else owns it
     };
     
+    $scope.getFinalRankingText = function() {
+        
+        if ($scope.unranked) {
+            return null;
+        }
+        
+        var firsts = [];
+        
+        for (var i = 0; i < $scope.players.length; i++) {
+            var player = $scope.players[i];
+            if (player.rank.first) {
+                firsts.push(player.name || ("Player " + (player.id + 1)));
+            }
+        }
+        
+        if (firsts.length === 1) {
+            return firsts[0] + " wins!";
+        }
+        
+        return firsts.join(' and ') + " tie for first.  Break ties based on number of shares in the highest-value countries.";
+        
+    };
+    
     
     //
     // Internally used functions

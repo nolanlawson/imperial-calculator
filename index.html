@@ -46,11 +46,13 @@
 				}   
 		  }
 		
+		.main-view {
+			margin-bottom: 40px;
+		}
+		
 		footer {
-		margin: 1em 2em 1em 2em;
-		position: fixed;
-		bottom: 0;
-		right: 0;
+		padding: 1em 2em 2em 2em;
+		position: relative;
 		}
 		.row.country-row {
 		    padding-bottom : 0.9em !important;
@@ -105,9 +107,9 @@
 			</div>
 		</div>
 		
-	    <div ng-view></div>	
+	    <div class="main-view" ng-view></div>	
 		<footer>
-			<small class="ng-cloak pull-right">Created by Nolan Lawson.</small>
+			<small class="ng-cloak pull-right">Imperial Score Calculatore v{{appVersion}} created by <a href='http://nolanlawson.com'>Nolan Lawson</a>.</small>
 		</footer>
 
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
@@ -115,5 +117,6 @@
 		<script src="js/controllers.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+		<script src="js/jquery.detectmobilebrowser.min.js"></script>
 	</body>
 </html>
