@@ -19,12 +19,12 @@ function ImperialController($scope, $location) {
 	$scope.unranked = true;
 	
 	$scope.countries = [
-        {id: 'at', name: 'Austria-Hungary'},
-        {id: 'it', name: 'Italy'},
-        {id: 'fr', name: 'France'},
-        {id: 'gb', name: 'Great Britain'},
-        {id: 'de', name: 'Germany'},
-        {id: 'ru', name: 'Russia'}
+        {id: 'at', name: 'Austria-Hungary', abbrevName : 'Austria'},
+        {id: 'it', name: 'Italy', abbrevName : "Italy"},
+        {id: 'fr', name: 'France', abbrevName: "France"},
+        {id: 'gb', name: 'Great Britain', abbrevName: "Britain"},
+        {id: 'de', name: 'Germany', abbrevName : "Germany"},
+        {id: 'ru', name: 'Russia', abbrevName : "Russia"}
     ];
     
     for (i = 0; i < $scope.countries.length; i++) {
