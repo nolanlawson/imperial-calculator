@@ -1,5 +1,9 @@
 CACHE MANIFEST
 CACHE:
+css/bootstrap/css/bootstrap.min.css
+css/bootstrap/css/bootstrap-responsive.min.css
+css/bootstrap/img/glyphicons-halflings-white.png
+css/bootstrap/img/glyphicons-halflings.png
 css/application.css
 css/countries.css
 css/famfamfam/css/famfamfam.css
@@ -14,13 +18,12 @@ img/countries.png
 img/money.png
 img/swiss_bank.png
 index.html
-http://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js
+js/angular.min.js
 js/application.js
 js/controllers.js
 js/html5shiv.js
-http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
-http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js
-http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css
+js/jquery-1.8.3.min.js
+js/bootstrap/bootstrap.min.js
 js/jquery.detectmobilebrowser.min.js
 partials/about.html
 partials/contact.html
