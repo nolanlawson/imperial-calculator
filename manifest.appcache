@@ -1,5 +1,5 @@
-# allows the Imperial Score Calculator to be stored locally
-CACHE MANIFEST 
+CACHE MANIFEST
+CACHE:
 css
 css/application.css
 css/countries.css
