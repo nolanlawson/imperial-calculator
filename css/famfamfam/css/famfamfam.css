@@ -1,1 +1,5 @@
-.famfamfam-money{ width: 16px; height: 16px; background: url(../../../img/money.png) no-repeat top left !important} 
+.famfamfam{background: url(../../../img/famfamfam.png) no-repeat top left !important;}
+
+.famfamfam-money{ background-position: 0 0; width: 16px; height: 16px} 
+.famfamfam-sum{ background-position: 0 -76px; width: 16px; height: 16px; } 
+.famfamfam-user_gray{ background-position: 0 -152px; width: 16px; height: 16px; }

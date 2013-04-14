@@ -5,28 +5,27 @@
 	</p>
 	
 	<table class="fixed" style="width:100%;" cellpadding="2px">
-		<col width="70px"/>
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+		<col width="50px"/>
 		<tr>
-			<th>Players&nbsp;&nbsp;&nbsp;</th>
-			<th colspan="6">Countries</th>
-			<th>Total</th>
-		</tr>
-		<tr>
-			<td></td>
 			<td align="center"  class="fixed" ng-repeat="country in countries" style="padding: 10px 0 5px 0;">
 				<i style="width:16px" class="flag flag-{{country.id}} icon-align-left"></i>
 			</td>
-			<td></td>
+			<td align="center" >
+				<div class="famfamfam famfamfam-sum"></div>
+			</td>
 		</tr>
 		<tr>
-			<td></td>
 			<td class="vertical-td fixed" ng-repeat="country in countries">
 				<div style="height:55px;margin:0 auto;width:12px;" class="country-label country-label-{{country.id}}"></div>
 			</td>
-			<td></td>
 		</tr>
 		<tr>
-			<td></td>
 			<td align="center" class="contains-dropdown" ng-repeat="country in countries">
 				<div style="width: 100%;" class="btn-group contains-dropdown">
 					<button style="width: 100%;" class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
@@ -40,14 +39,24 @@
 					</ul>
 				</div>
 			</td>
-			<td></td>
 		</tr>
-		<tbody ng-repeat="player in players">
+		<tbody ng-repeat="player in players" style="border-top: 15px solid white;">
 			<tr>
-				<td valign="center" align="center">
-					<input style="text-align:center;" class="span1 player-input" type="text" ng-model="player.name" placeholder="Player {{player.id + 1}}"/>
+				<td class="famfamfam-centered famfamfam-user_gray" style="padding-left:24px;" colspan="3" valign="center" align="center">
+					<input style="width:100%;display: block;box-sizing: border-box;height: 100%;" type="text" autocapitalize="on" ng-model="player.name" placeholder="Player {{player.id + 1}}"></input>
 				</td>
-				<td rowspan="2" align="center" class="contains-dropdown" ng-repeat="country in countries">
+				<td class="famfamfam-centered famfamfam-money" style="padding-left:24px;" colspan="3" valign="center" align="center">
+					<input style="width:100%" type="number" min="0" class="span1" placeholder="Cash" ng-model="player.cash" ngPattern="[0-9]+"></input>
+				</td>
+				
+				<td valign="center" align="center">
+					<span ng-hide="unranked" class="label ranking-label" ng-class="{'label-success':player.rank.first, 'label-important':player.rank.last, 'label-info':player.rank.middle}">
+						#{{(player.rank.order + 1)}}
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" class="contains-dropdown" ng-repeat="country in countries">
 					<div style="width: 100%;" class="btn-group contains-dropdown"> 
 						<button style="width: 100%;" href='#' class="btn dropdown-toggle" data-toggle="dropdown">{{sumSharesInCountry(player,country)}}
 							<span class="caret"></span>
@@ -64,44 +73,24 @@
 						</ul>
 					</div>
 				</td>
-				<td valign="top" align="center">
-					<span ng-hide="unranked" class="label ranking-label" ng-class="{'label-success':player.rank.first, 'label-important':player.rank.last, 'label-info':player.rank.middle}">
-						#{{(player.rank.order + 1)}}
-					</span>
-				</td>
-			</tr>
-			<tr>
 				<td valign="center" align="center">
-					<input class="money-bg" style="text-align:center;" type="number" min="0" class="span1" placeholder="Cash" ng-model="player.cash"ngPattern="[0-9]+" style="text-align:center;"></input>
-				</td>
-				<td valign="top" align="center">
 					<strong>{{player.score}} mil</strong>
-				</td>
+				</td>				
+				
 
 			</tr>
 		</tbody>
-		<tr ng-show="players.length < 6">
-			<td>
+		<tr ng-show="players.length < 6" style="border-top: 15px solid white;">
+			<td colspan="6">
 				<button class="span2 btn btn-primary add-player" ng-click="addPlayer()" href='#'>
-					<table style="margin:auto;">
-					<tr>
-						<td>
 							<i style="display:inline-block;" class="icon-plus-sign icon-white"></i>
-						</td>
-						<td>
+
 							<i style="display:inline-block;" class="icon-user icon-white"></i>
-						</td>
-						</tr>
-					</table>
+							Add Player
 				</button>
 			</td>
 		</tr>
-		<tr ng-hide="unranked" style="width:100%;text-align:center;">
-			<td colspan="8">
-				
-			</td>
-		</tr>
 	</table>
-	<div style="text-align:center;width:100%"><span class="label label-info">{{getFinalRankingText()}}</span></div>
+	<div style="text-align:center;width:100%;margin-top:15px;"><span class="label label-info">{{getFinalRankingText()}}</span></div>
 
 </div><!-- /container -->
