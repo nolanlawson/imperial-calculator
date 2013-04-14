@@ -50,7 +50,8 @@
 				<td rowspan="2" align="center" class="contains-dropdown" ng-repeat="country in countries">
 					<div style="width: 100%;" class="btn-group contains-dropdown"> 
 						<button style="width: 100%;" href='#' class="btn dropdown-toggle" data-toggle="dropdown">{{sumSharesInCountry(player,country)}}
-							<span class="caret"></span></button>
+							<span class="caret"></span>
+						</button>
 						<ul class="dropdown-menu dropdown-menu-small">
 							<li ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player, selected: share.player == player}">
 								<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">

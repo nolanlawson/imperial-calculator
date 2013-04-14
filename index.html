@@ -23,11 +23,16 @@
 		/* Large desktop */
 		@media (min-width: 1000px) {
 				body {
-						padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-		        	}
+					padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+	        	}
+				.main-view {
+					margin-bottom: 40px;
+				}
+
 				footer {
-					position : relative;
-				}		    
+					padding: 1em 2em 2em 2em;
+					position: relative;
+				}
 		}
 
 		/* Portrait tablet to landscape and desktop */
@@ -35,8 +40,13 @@
 				body {
 					padding-top: 0px;
 				}   
+				.main-view {
+					margin-bottom: 40px;
+				}
+
 				footer {
-					position : relative;
+					padding: 1em 2em 2em 2em;
+					position: relative;
 				}
 		}
 		 
@@ -45,9 +55,15 @@
 				body {
 					padding-top: 0px;
 				}  
+				.main-view {
+					margin-bottom: 40px;
+				}
+
 				footer {
-					position : relative;
-				} 
+					padding: 1em 2em 2em 2em;
+					position: relative;
+				}
+				
 		 }
 		  
 		  /* Landscape phones and down */
@@ -62,13 +78,15 @@
 				    height: 100%;
 				}
 				
-				.main-view {
-					height : 100%;
-				}
-				
 				footer {
 					position : fixed;
-					bottom   : 0;
+					bottom : 0;
+					right : 0;
+					padding : 0 0.5em 0.25em 0;
+				}
+				
+				.main-view {
+					height : 100%;
 				}
 				
 				.container {
@@ -80,9 +98,6 @@
 			margin-bottom: 40px;
 		}
 		
-		footer {
-			padding: 1em 2em 2em 2em;
-		}
 		.row.country-row {
 		    padding-bottom : 0.9em !important;
 		}
