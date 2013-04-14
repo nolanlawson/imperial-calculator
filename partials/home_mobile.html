@@ -42,10 +42,10 @@
 		</tr>
 		<tbody ng-repeat="player in players" style="border-top: 15px solid white;">
 			<tr>
-				<td class="famfamfam-centered famfamfam-user_gray" style="padding-left:24px;" colspan="3" valign="center" align="center">
+				<td class="famfamfam famfamfam-user_gray" style="padding-left:24px;" colspan="3" valign="center" align="center">
 					<input style="width:100%;display: block;box-sizing: border-box;height: 100%;" type="text" autocapitalize="on" ng-model="player.name" placeholder="Player {{player.id + 1}}"></input>
 				</td>
-				<td class="famfamfam-centered famfamfam-money" style="padding-left:24px;" colspan="3" valign="center" align="center">
+				<td class="famfamfam famfamfam-money" style="padding-left:24px;" colspan="3" valign="center" align="center">
 					<input style="width:100%" type="number" min="0" class="span1" placeholder="Cash" ng-model="player.cash" ngPattern="[0-9]+"></input>
 				</td>
 				
