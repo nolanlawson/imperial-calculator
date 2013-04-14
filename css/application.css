@@ -28,3 +28,7 @@ table.fixed td.contains-dropdown {
 .dropdown-menu.dropdown-menu-small {
     min-width: 100px;
 }
+
+.money-bg {
+    background : url(../img/money.png) no-repeat left center;background-position:5px;
+}

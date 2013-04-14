@@ -66,36 +66,32 @@
 				
 		 }
 		  
-		  /* Landscape phones and down */
-		  @media (max-width: 480px) {
-				body {
-					padding-top: 0px;
-				}   
-				
-				/* "quirk mode" */
-				html, body {
-				    margin: 0;
-				    height: 100%;
-				}
-				
-				footer {
-					position : fixed;
-					bottom : 0;
-					right : 0;
-					padding : 0 0.5em 0.25em 0;
-				}
-				
-				.main-view {
-					height : 100%;
-				}
-				
-				.container {
-					height : 100%;
-				}
-		  }
-		
-		.main-view {
-			margin-bottom: 40px;
+		/* Landscape phones and down */
+		@media (max-width: 480px) {
+			body {
+				padding-top: 0px;
+			}   
+
+			/* "quirk mode" */
+			html, body {
+			   margin: 0;
+			   height: 100%;
+			}
+
+			footer {
+				position : fixed;
+				bottom : 0;
+				right : 0;
+				padding : 0 0.5em 0.25em 0;
+			}
+
+			.main-view {
+				height : 100%;
+			}
+
+			.container {
+				height : 100%;
+			}
 		}
 		
 		.row.country-row {
@@ -140,7 +136,8 @@
 			<div class="navbar-inner">
 				<div class="container">
 					<div type="div" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">Menu</div>
-					<a class="brand main-logo" href="#/home" ng-click="selectedTabId = 'home'">Imperial Score Calculator</a>
+					<a class="brand main-logo" href="#/home" ng-click="selectedTabId = 'home'"><span class="hidden-phone">Imperial Score Calculator</span>
+					<span class="visible-phone">Imperial Calculator</span></a>
 					<div class="ng-cloak nav-collapse collapse">
 						<ul class="nav">
                             <li ng-click="$parent.selectedTabId = tab.id" ng-repeat="tab in tabs" ng-class="{active: tab.id == $parent.selectedTabId}">
@@ -153,7 +150,7 @@
 		
 	    <div class="main-view" ng-view></div>	
 		<footer>
-			<small class="ng-cloak pull-right">Imperial Score Calculator v{{appVersion}} created by <a href='http://nolanlawson.com'>Nolan Lawson</a>.</small>
+			<small class="ng-cloak pull-right hidden-phone">Imperial Score Calculator v{{appVersion}} created by <a href='http://nolanlawson.com'>Nolan Lawson</a>.</small>
 		</footer>
 
 		<script src="js/angular.min.js"></script>
