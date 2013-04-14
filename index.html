@@ -12,12 +12,14 @@
 		<link href="css/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="css/flags.css" rel="stylesheet" type="text/css">
 		<link href="css/countries.css" rel="stylesheet" type="text/css">
-		<link href="css/famfamfam/css/famfamfam.css" rel="stylesheet" type="text/css">
 		<style>
 		/** ensure ng-cloaked elements aren't shown while the app is loading, @see ng-cloak in Angular API **/
 		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
 		  display: none;
 		}
+		/*
+		 * MAIN STYLES
+		 */
 
 		/* Large desktop */
 		@media (min-width: 1000px) {
@@ -148,6 +150,17 @@
 		.dropdown-menu.dropdown-menu-small {
 		    min-width: 100px;
 		}
+		
+		/*
+		 * FAMFAMFAM
+		 */
+		.famfamfam-important{background: url(img/famfamfam.png) no-repeat top left !important;}
+		.famfamfam{background: url(img/famfamfam.png) no-repeat top left;}
+
+		.famfamfam-money{ background-position: 0 0; width: 16px; height: 16px} 
+		.famfamfam-sum{ background-position: 0 -76px; width: 16px; height: 16px; } 
+		.famfamfam-user_gray{ background-position: 0 -152px; width: 16px; height: 16px; }
+		
 		</style>
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
