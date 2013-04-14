@@ -1,10 +1,7 @@
 CACHE MANIFEST
 CACHE:
-css
 css/application.css
 css/countries.css
-css/famfamfam
-css/famfamfam/css
 css/famfamfam/css/famfamfam.css
 css/flags.css
 css/flags.png
@@ -13,18 +10,14 @@ ico/swiss_bank_114x114.png
 ico/swiss_bank_144x144.png
 ico/swiss_bank_57x57.png
 ico/swiss_bank_72x72.png
-img
 img/countries.png
 img/money.png
 img/swiss_bank.png
 index.html
-js
 js/application.js
 js/controllers.js
 js/html5shiv.js
 js/jquery.detectmobilebrowser.min.js
-manifest.cache
-partials
 partials/about.html
 partials/contact.html
 partials/home.html
