@@ -13,15 +13,15 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td align="center"  class="fixed" ng-repeat="country in countries" style="padding: 10px 0 30px 0;">
-				<i class="flag flag-{{country.id}} icon-align-left"></i>
+			<td align="center"  class="fixed" ng-repeat="country in countries" style="padding: 10px 0 5px 0;">
+				<i style="width:16px" class="flag flag-{{country.id}} icon-align-left"></i>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td class="vertical-td fixed" ng-repeat="country in countries">
-				<p class="vertical-text"><span fix-vertical-text="country">{{country.abbrevName}}</span></p>
+				<div style="height:55px;margin:0 auto;width:12px;" class="country-label country-label-{{country.id}}"></div>
 			</td>
 			<td></td>
 		</tr>
