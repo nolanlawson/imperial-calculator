@@ -1,3 +1,5 @@
+<html>
+<body>
 <div class="tab-content container">
 	<p>
 		<a href='http://boardgamegeek.com/boardgame/24181/imperial' target='_blank'>Imperial</a> is a board game created by Mac Gerdts.<br>
@@ -43,10 +45,10 @@
 		<tbody ng-repeat="player in players" style="border-top: 15px solid white;">
 			<tr>
 				<td class="famfamfam famfamfam-user_gray" style="padding-left:24px;" colspan="3" valign="center" align="center">
-					<input style="width:100%;display: block;box-sizing: border-box;height: 100%;" type="text" autocapitalize="on" ng-model="player.name" placeholder="Player {{player.id + 1}}"></input>
+					<input style="width:100%;display: block;box-sizing: border-box;height: 100%;" type="text" autocapitalize="on" ng-model="player.name" placeholder="Player {{player.id + 1}}"/>
 				</td>
 				<td class="famfamfam famfamfam-money" style="padding-left:24px;" colspan="3" valign="center" align="center">
-					<input style="width:100%" type="number" min="0" class="span1" placeholder="Cash" ng-model="player.cash" ngPattern="[0-9]+"></input>
+					<input style="width:100%" type="number" min="0" class="span1" placeholder="Cash" ng-model="player.cash" ngPattern="[0-9]+"/>
 				</td>
 				
 				<td valign="center" align="center">
@@ -65,7 +67,7 @@
 							<li ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player, selected: share.player == player}">
 								<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">
 									<i ng-class="{true: 'icon-ok', false: 'icon-none'}[share.player == player]"></i>
-									<span>{{share.value}} mil<span>
+									<span>{{share.value}} mil</span>
 								</a>
 							</li>
 							<li class="divider"></li>
@@ -94,3 +96,5 @@
 	<div style="text-align:center;width:100%;margin-top:15px;"><span class="label label-info">{{getFinalRankingText()}}</span></div>
 
 </div><!-- /container -->
+</body>
+</html>

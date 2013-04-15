@@ -1,3 +1,5 @@
+<html>
+<body>
 <div class="tab-content container">
 	<p>
 		<a href='http://boardgamegeek.com/boardgame/24181/imperial' target='_blank'>Imperial</a> is a board game created by Mac Gerdts.<br>
@@ -42,7 +44,7 @@
 				<li class="share-item" ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player, selected: share.player == player}">
 					<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">
 						<i ng-class="{true: 'icon-ok', false: 'icon-none'}[share.player == player]"></i>
-						<span>{{share.value}} mil<span>
+						<span>{{share.value}} mil</span>
 					</a>
 				</li>
 				<li class="divider"></li>
@@ -55,14 +57,14 @@
 		<div class="span3">
 			<div class="btn-group">
 				<button class="btn cash-btn-grp dropdown-toggle span3" data-toggle="dropdown" href='#' type="button">
-						<i class="famfamfam-important famfamfam-money icon-align-left"></i>
+						<i class="famfamfam famfamfam-money icon-align-left"></i>
 						<span>Cash on hand</span>
 				</button>
 			</div>
 		</div>
 		<div ng-repeat="player in players" class="span1">
 			<input type="number" min="0" class="span1" placeholder="0 mil" ng-model="player.cash" 
-					ngPattern="[0-9]+" style="text-align:center;"></input>
+					ngPattern="[0-9]+" style="text-align:center;"/>
 		</div>
 	</div>
 	<div class="row sum-row">
@@ -82,3 +84,5 @@
 		</div>
 	</div>
 </div><!-- /container -->
+</body>
+</html>
