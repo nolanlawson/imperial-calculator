@@ -153,7 +153,7 @@ ImperialController = function($scope, $location) {
      * Calculates the score and the sum of the shares per country of all players
      */
     function updatePlayerStats(player) {
-        console.log('updatePlayerStats('+player.id+')');
+        //console.log('updatePlayerStats('+player.id+')');
         
         var sumSharesPerCountry = {};
         var score = player.cash || 0;
@@ -171,7 +171,7 @@ ImperialController = function($scope, $location) {
     
     // returns an object containing "first" or "last", depending on the number of players
     function updateRanking() {
-        console.log('updateRanking()');
+        //console.log('updateRanking()');
         
         var i;
         
@@ -249,7 +249,7 @@ ImperialController = function($scope, $location) {
      * Update the "players in first" object, which is used to show some nice "so and so wins!" text
      */
     function updatePlayersInFirst() {
-        console.log('updatePlayersInFirst()');
+        //console.log('updatePlayersInFirst()');
         
         var players = [];
         
