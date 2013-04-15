@@ -75,7 +75,12 @@
 	</div>
 	<div ng-hide="unranked" class="row">
 		<div class="span3">
-			<span>{{getFinalRankingText()}}</span>
+			<div>
+				<span class="label label-info">{{!unranked && (!playersInFirst.tieGame && playersInFirst.players[0] + ' wins!' || (playersInFirst.players.join(' and ') + ' tie for first!')) || ''}}</span>
+			</div>
+			<div ng-show="playersInFirst.tieGame">
+				Ties are broken based on the number of shares in the highest-valued country, followed by shares in the next-highest-valued country, etc.
+			</div>
 		</div>
 		<div ng-repeat="player in players" class="span1">
 			<span class="label ranking-label" ng-class="{'label-success':player.rank.first, 'label-important':player.rank.last, 'label-info':player.rank.middle}">

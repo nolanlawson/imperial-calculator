@@ -55,23 +55,57 @@ ImperialController = function($scope, $location) {
     // Watches
     //
     
-    var watchExpression = 'players[0].cash + players[1].cash + players[2].cash + players[3].cash + players[4].cash + players[5].cash + ' +
-            'countries[0].multiplier + countries[1].multiplier + countries[2].multiplier + countries[3].multiplier + countries[4].multiplier + countries[5].multiplier + ' +
-            'players[0].shares.length + players[1].shares.length + players[2].shares.length + players[3].shares.length + players[4].shares.length + players[5].shares.length';
+    // watch player holdings changes
     
-    $scope.$watch(watchExpression, function() {
-        
-        // update player scores and sum of shares in each country
-        for (var i = 0; i < $scope.players.length; i++) {
-            var player = $scope.players[i];
+    function createPlayerWatcher(playerId) { // avoids jshint warning about functions in loops
+        return function() {
+            if (playerId < $scope.players.length) {
+                updatePlayerStats($scope.players[playerId]);
+                updateRanking();
+                updatePlayersInFirst();
+            }
+        };
+    }
+    
+    for (i = 0; i < $scope.MAX_NUM_PLAYERS; i++) {
+        $scope.$watch('players[' + i + '].cash + players[' + i + '].shares.length', createPlayerWatcher(i));
+    }
+    
+    // watch player name changes - just need to update the "so and so wins" flavor text
+    
+    $scope.$watch('players[0].name + players[1].name + players[2].name + players[3].name + players[4].name + players[5].name', updatePlayersInFirst);
+    
+    // watch country changes
+    
+    function createCountryWatcher(countryIdx) { // avoids jshint warning about functions in loops
+        return function() {
+            var country = $scope.countries[countryIdx];
             
-            updatePlayerStats(player);
-        }
-        
-        // update the sum of shares in each country per player
-        updateRanking();
-        
-    });
+            // update player scores only for players who own shares in this country
+            var updatedPlayers = {};
+            for (var i = 0; i < country.shares.length; i ++) {
+                var share = country.shares[i];
+                
+                if (share.player && !updatedPlayers[share.player.id]) {
+                    updatePlayerStats(share.player);
+                    updatedPlayers[share.player.id] = true;
+                }
+            }
+            
+            // update the global ranking only if >=1 player was modified
+            for (var key in updatedPlayers) {
+                if (updatedPlayers.hasOwnProperty(key)) {
+                    updateRanking();
+                    updatePlayersInFirst();
+                    break;
+                }
+            }
+        };
+    }
+    
+    for (i = 0; i < $scope.countries.length; i++) {
+        $scope.$watch('countries[' + i + '].multiplier', createCountryWatcher(i));
+    }
     
     //
     // click/change functions
@@ -109,68 +143,35 @@ ImperialController = function($scope, $location) {
         // else do nothing; someone else owns it
     };
     
-    $scope.getFinalRankingText = function() {
-        
-        if ($scope.unranked) {
-            return null;
-        }
-        
-        var firsts = [];
-        
-        for (var i = 0; i < $scope.players.length; i++) {
-            var player = $scope.players[i];
-            if (player.rank.first) {
-                firsts.push(player.name || ("Player " + (player.id + 1)));
-            }
-        }
-        
-        if (firsts.length === 1) {
-            return firsts[0] + " wins!";
-        }
-        
-        return firsts.join(' and ') + " tie for first.";
-    };
-    
     
     //
     // Internally used functions
     //
     
-    function calculateScore(player) {
-        var sum = player.cash || 0;
+    
+    /**
+     * Calculates the score and the sum of the shares per country of all players
+     */
+    function updatePlayerStats(player) {
+        console.log('updatePlayerStats('+player.id+')');
+        
+        var sumSharesPerCountry = {};
+        var score = player.cash || 0;
+        
         for (var i = 0; i < player.shares.length; i++) {
             var share = player.shares[i];
-            
-            sum += share.value * share.country.multiplier;
+             
+            sumSharesPerCountry[share.country.id] = (sumSharesPerCountry[share.country.id] || 0) + share.value;
+            score += share.value * share.country.multiplier;
         }
-        return sum;
-    }
-    
-    function calculateSumSharesInCountry(player, country) {
-         var sum = 0;
-         for (var i = 0; i < player.shares.length; i++) {
-             var share = player.shares[i];
-             if (share.country === country) {
-                 sum += player.shares[i].value;
-             }
-         }
-         return sum;    
-    }
-    
-    function updatePlayerStats(player) {
-        player.score = calculateScore(player);
-        for (var j = 0; j < $scope.countries.length; j++) {
-            var country = $scope.countries[j];
-            
-            var sum = calculateSumSharesInCountry(player, country);
-            
-            player.sumSharesPerCountry[country.id] = sum;
-        }
+        
+        player.sumSharesPerCountry = sumSharesPerCountry;
+        player.score = score;
     }
     
     // returns an object containing "first" or "last", depending on the number of players
-    // TODO: optimize this
     function updateRanking() {
+        console.log('updateRanking()');
         
         var i;
         
@@ -214,17 +215,14 @@ ImperialController = function($scope, $location) {
         }
         
         // copy
-        var rankedPlayers = [];
-        for (i = 0; i < $scope.players.length; i++) {
-            rankedPlayers.push($scope.players[i]);
-        }
+        var rankedPlayers = $scope.players.slice();
 
         // rank
         rankedPlayers.sort(function(left, right){ 
             return right.score - left.score;
         });
         
-        // update the "rank" object
+        // update the "rank" object of each player
         var lastRankedIndex = -1;
         for (i = 0; i < rankedPlayers.length; i++) {
             var player = rankedPlayers[i];
@@ -245,6 +243,28 @@ ImperialController = function($scope, $location) {
             }
         }
         $scope.unranked = false;
+    }
+    
+    /**
+     * Update the "players in first" object, which is used to show some nice "so and so wins!" text
+     */
+    function updatePlayersInFirst() {
+        console.log('updatePlayersInFirst()');
+        
+        var players = [];
+        
+        for (var i = 0; i < $scope.players.length; i++) {
+            var player = $scope.players[i];
+            
+            if (player.rank.first) {
+                players.push(player.name || 'Player ' + (i + 1));
+            }
+        }
+        
+        $scope.playersInFirst = {
+            players: players, 
+            tieGame : (players.length > 1)
+        };
     }
 };
 
