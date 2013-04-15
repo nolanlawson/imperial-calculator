@@ -2,13 +2,26 @@
  * AngularJS Controllers for the Imperial Score Calculator app.
  */
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, noarg:true, noempty:true, nonew:true, undef:true, strict:true, browser:true */
+/*export ImperialController */
 
-function ImperialController($scope, $location) {
-    "use strict";
+var ImperialController;
+
+(function(){
+
+"use strict";
+
+ImperialController = function($scope, $location) {
     
-    var i;
+    //
+    // CONSTANTS
+    //
+    
+	$scope.APP_VERSION = '1.0';
+	$scope.MAX_NUM_PLAYERS = 6;
 	
-	$scope.appVersion = '1.0';
+	//
+	// MODEL SETUP (VARIABLES)
+	//
 	
 	$scope.tabs = [{id : 'home', title : 'Home'},{id : 'about', title : 'About'}, {id : 'contact', title: 'Contact'}];
 	$scope.selectedTabId = $location.path() === '/contact' ? 'contact' : $location.path() === '/about' ? 'about' : 'home';
@@ -27,7 +40,7 @@ function ImperialController($scope, $location) {
         {id: 'ru', name: 'Russia', abbrevName : "Russia"}
     ];
     
-    for (i = 0; i < $scope.countries.length; i++) {
+    for (var i = 0; i < $scope.countries.length; i++) {
         var thisCountry = $scope.countries[i];
         thisCountry.multiplier = 0;
         thisCountry.shares = [];
@@ -47,12 +60,17 @@ function ImperialController($scope, $location) {
             'players[0].shares.length + players[1].shares.length + players[2].shares.length + players[3].shares.length + players[4].shares.length + players[5].shares.length';
     
     $scope.$watch(watchExpression, function() {
+        
+        // update player scores and sum of shares in each country
         for (var i = 0; i < $scope.players.length; i++) {
             var player = $scope.players[i];
             
-            player.score = calculateScore(player);
+            updatePlayerStats(player);
         }
+        
+        // update the sum of shares in each country per player
         updateRanking();
+        
     });
     
     //
@@ -64,20 +82,10 @@ function ImperialController($scope, $location) {
             id     : $scope.players.length,
             name   : '',
             shares : [],
-            cash   : '',
-            rank   : {}
+            cash   : 0,
+            rank   : {},
+            sumSharesPerCountry : {}
         });
-    };
-    
-    $scope.sumSharesInCountry = function(player, country) {
-         var sum = 0;
-         for (var i = 0; i < player.shares.length; i++) {
-             var share = player.shares[i];
-             if (share.country === country) {
-                 sum += player.shares[i].value;
-             }
-         }
-         return sum;    
     };
     
     $scope.toggleShareInPlayer = function(player, share) {
@@ -136,6 +144,28 @@ function ImperialController($scope, $location) {
             sum += share.value * share.country.multiplier;
         }
         return sum;
+    }
+    
+    function calculateSumSharesInCountry(player, country) {
+         var sum = 0;
+         for (var i = 0; i < player.shares.length; i++) {
+             var share = player.shares[i];
+             if (share.country === country) {
+                 sum += player.shares[i].value;
+             }
+         }
+         return sum;    
+    }
+    
+    function updatePlayerStats(player) {
+        player.score = calculateScore(player);
+        for (var j = 0; j < $scope.countries.length; j++) {
+            var country = $scope.countries[j];
+            
+            var sum = calculateSumSharesInCountry(player, country);
+            
+            player.sumSharesPerCountry[country.id] = sum;
+        }
     }
     
     // returns an object containing "first" or "last", depending on the number of players
@@ -216,6 +246,8 @@ function ImperialController($scope, $location) {
         }
         $scope.unranked = false;
     }
-}
+};
 
 ImperialController.$inject = ['$scope', '$location'];
+
+})();

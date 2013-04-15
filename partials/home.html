@@ -16,7 +16,7 @@
 		<div ng-repeat="player in players" class="span1 player-name">
 			<input class="span1 player-input" type="text" ng-model="player.name" placeholder="Player {{player.id + 1}}"/>
 		</div>
-		<button class="span2 btn btn-primary add-player" ng-show="players.length < 6" ng-click="addPlayer()" href='#'>Add Player</button>
+		<button class="span2 btn btn-primary add-player" ng-show="players.length < MAX_NUM_PLAYERS" ng-click="addPlayer()" href='#'>Add Player</button>
 	</div>
 	<div ng-repeat="country in countries" class="row country-row">
 		<div class="span3 tmpl-country">
@@ -37,7 +37,7 @@
 		</div>
 		<div ng-repeat="player in players" class="span1">
 			<div class="btn-group"> 
-			<button href='#' class="btn span1 dropdown-toggle share-dropdown-button" data-toggle="dropdown">{{sumSharesInCountry(player,country)}} mil</button>
+			<button href='#' class="btn span1 dropdown-toggle share-dropdown-button" data-toggle="dropdown">{{player.sumSharesPerCountry[country.id] || 0}} mil</button>
 			<ul class="dropdown-menu share-dropdown">
 				<li class="share-item" ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player, selected: share.player == player}">
 					<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">
