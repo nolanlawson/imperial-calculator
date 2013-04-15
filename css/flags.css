@@ -5,7 +5,6 @@
  */
  .flag {
     background : url(../img/flags.png) no-repeat left center;
-    background-size: 478px 1964px;
 }
 .flag-at{ background-position: 0 -671px; } 
 .flag-de{ background-position: -66px -1403px; } 

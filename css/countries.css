@@ -1,6 +1,5 @@
 .country-label {
-	background : url(../img/countries.png) no-repeat top center;
-	background-size: 13px 467px;
+	background : url(../img/countries.png) no-repeat center top;
 }
 .country-label-at{ background-position: 0 0; width: 10px; height: 38px; } 
 .country-label-gb{ background-position: 0 -88px; width: 10px; height: 34px; } 
