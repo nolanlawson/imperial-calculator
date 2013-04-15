@@ -4,11 +4,35 @@
  *
  */
  .flag {
-    background : url(../img/flags.png) no-repeat left center;
+background-repeat: no-repeat;
 }
-.flag-at{ background-position: 0 -671px; } 
-.flag-de{ background-position: -66px -1403px; } 
-.flag-fr{ background-position: -132px -732px; } 
-.flag-gb{ background-position: -132px -854px; } 
-.flag-it{ background-position: -198px -793px; } 
-.flag-ru{ background-position: -330px -1708px; } 
+.flag-at {
+background-position: 0 -671px; background-image : url(../img/flags.png);
+width: 16px;
+height: 11px;
+}
+.flag-de {
+background-position: -66px -1403px; background-image : url(../img/flags.png);
+width: 16px;
+height: 11px;
+}
+.flag-fr {
+background-position: -132px -732px; background-image : url(../img/flags.png);
+width: 16px;
+height: 11px;
+}
+.flag-gb {
+background-position: -132px -854px; background-image : url(../img/flags.png);
+width: 16px;
+height: 11px;
+}
+.flag-it {
+background-position: -198px -793px; background-image : url(../img/flags.png);
+width: 16px;
+height: 11px;
+}
+.flag-ru {
+background-position: -330px -1708px; background-image : url(../img/flags.png);
+width: 16px;
+height: 11px;
+}

@@ -1,10 +1,41 @@
 .country-label {
-	background : url(../img/countries.png) no-repeat center top;
+    background-repeat: no-repeat;
 }
-.country-label-at{ background-position: 0 0; width: 10px; height: 38px; } 
-.country-label-gb{ background-position: 0 -88px; width: 10px; height: 34px; } 
-.country-label-fr{ background-position: 0 -172px; width: 10px; height: 37px; } 
-.country-label-de{ background-position: 0 -259px; width: 13px; height: 50px; } 
-.country-label-it{ background-position: 0 -359px; width: 12px; height: 21px; } 
-.country-label-ru{ background-position: 0 -430px; width: 10px; height: 37px; }
+
+.country-label-at {
+background-image : url(../img/countries.png);
+background-position: 0 0;
+width: 10px;
+height: 38px;
+}
+.country-label-gb {
+background : url(../img/countries.png) no-repeat center top;
+background-position: 0 -88px;
+width: 10px;
+height: 34px;
+}
+.country-label-fr {
+background : url(../img/countries.png) no-repeat center top;
+background-position: 0 -172px;
+width: 10px;
+height: 37px;
+}
+.country-label-de {
+background : url(../img/countries.png) no-repeat center top;
+background-position: 0 -259px;
+width: 13px;
+height: 50px;
+}
+.country-label-it {
+background : url(../img/countries.png) no-repeat center top;
+background-position: 0 -359px;
+width: 12px;
+height: 21px;
+}
+.country-label-ru {
+background : url(../img/countries.png) no-repeat center top;
+background-position: 0 -430px;
+width: 10px;
+height: 37px;
+}
 
