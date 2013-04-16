@@ -6,13 +6,11 @@
 		Use this tool to calculate players' scores at the end of the game.
 	</p>
 	
-	<div class="row" ng-show="savedGameTimestamps.length > 0">
-			<div class="alert alert-info span9">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>Welcome back!</strong> It looks like you were working on a game at {{lastGameTimestamp}}.
-			<div style="padding-top:10px">
-				<button type="button" class="btn btn-primary" href="#">Resume this game</button>
-			</div>
+	<div class="saved-games-alert alert alert-info span9" ng-show="savedGameTimestamps.length > 0">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Welcome back!</strong> It looks like you were working on a game at {{lastGameTimestamp.display}}.
+		<div style="padding-top:10px">
+			<button type="button" class="btn btn-primary" href="#" ng-click="loadGame(lastGameTimestamp.timestamp);$.closest('.alert').hide()">Resume this game</button>
 		</div>
 	</div>
 	
@@ -42,7 +40,7 @@
 				</button>
 				<ul class="dropdown-menu pull-right">
 					<li ng-repeat="possibleMultiplier in possibleMultipliers">
-						<a href='#' ng-click="country.multiplier = possibleMultiplier">×{{possibleMultiplier}}</a>
+						<a href='#' ng-click="country.multiplier = possibleMultiplier; $event.preventDefault();">×{{possibleMultiplier}}</a>
 					</li>
 				</ul>
 				
@@ -59,7 +57,7 @@
 					</a>
 				</li>
 				<li class="divider"></li>
-				<li class="share-done"><a href='#'>Done</a></li>
+				<li class="share-done"><a href='#' ng-click="$event.preventDefault()">Done</a></li>
 			</ul>
 			</div>
 		</div>

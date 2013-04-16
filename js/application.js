@@ -1,7 +1,7 @@
 /*
  * Main Angular definitions for the Imperial Score Calculator
  */
-/*global angular navigator Lawnchair*/
+/*global angular navigator localStorage*/
 (function() {
 
     "use strict";
@@ -25,38 +25,54 @@
             redirectTo: '/home'
         });
     }]).
-    service('storageService', function(){
+    service('storageService', function() {
         
-        var TIMESTAMPS_KEY = 'saved-game-timestamps';
-        var LAWNCHAIR_NAME = 'imperial';
-        var lawnchair = Lawnchair(LAWNCHAIR_NAME, function(){});
+        var TIMESTAMPS_KEY = 'timestamps';
+        
+        function get(key) {
+            return JSON.parse(localStorage.getItem(key));
+        }
+        
+        function set(key, obj) {
+            localStorage.setItem(key, JSON.stringify(obj));
+        }
         
         return {
             saveGame : function(game) {
                 
-                lawnchair.get(TIMESTAMPS_KEY, function(result){
-                    
-                    var savedGameTimestamps = (result && result.data) ? result.data : [];
-                    
-                    savedGameTimestamps.push(game.startTime);
-                    savedGameTimestamps.sort();
-                    lawnchair.save({key : TIMESTAMPS_KEY, data : savedGameTimestamps});
-                    lawnchair.save({key : game.startTime, data: game});
-                });
+                var savedGameTimestamps = get(TIMESTAMPS_KEY) || [];
+                
+                savedGameTimestamps.push(game.startTime);
+                savedGameTimestamps.sort();
+                set(TIMESTAMPS_KEY, savedGameTimestamps);
+                set(game.startTime, game);
             },
             
             getGame : function(startTime, onResult) {
-                lawnchair.get({key : startTime},function(result){
-                    onResult(result.data);
-                });
+                onResult(get(startTime));
             },
             
             getSavedGameTimestamps : function(onResult) {
-                lawnchair.get(TIMESTAMPS_KEY, function(result){
-                    onResult((result && result.data) || []);
-                });
-            }
+                onResult(get(TIMESTAMPS_KEY));
+            },
             
+            checkedIsAvailable : null,
+            
+            isAvailable : function() {
+                
+                if (this.checkedIsAvailable === null) {
+                
+                    try {
+                        localStorage.setItem('test', 'test');
+                        localStorage.removeItem('test');
+                        this.checkedIsAvailable = true;
+                    } catch (e) {
+                        this.checkedIsAvailable = false;
+                    }
+                }
+                return this.checkedIsAvailable;
+                
+            }
         };
     });
 

@@ -22,13 +22,26 @@ ImperialController = function($scope, $location, storageService) {
     //
     // PERSISTENCE SETUP (variables)
     //
-    $scope.startTime = new Date().getTime();
-    storageService.getSavedGameTimestamps(function(savedGameTimestamps) {
-        $scope.savedGameTimestamps = savedGameTimestamps;
-        $scope.lastGameTimestamp = savedGameTimestamps && savedGameTimestamps.length > 0 && 
-                new Date(savedGameTimestamps[savedGameTimestamps.length - 1]).toString();
-    });
     
+    $scope.startTime = new Date().getTime();
+    if (storageService.isAvailable()) {
+        storageService.getSavedGameTimestamps(function(savedGameTimestamps) {
+            if (!savedGameTimestamps) {
+                return;
+            }
+            var displayTimestamps = [];
+            for (var i = 0; i < savedGameTimestamps.length; i++) {
+                var savedGameTimestamp = savedGameTimestamps[i];
+            
+                displayTimestamps.push({
+                    timestamp : savedGameTimestamp, 
+                    display   : new Date(savedGameTimestamp).toString()
+                });
+            }
+            $scope.savedGameTimestamps = displayTimestamps;
+            $scope.lastGameTimestamp = displayTimestamps.length > 0 && displayTimestamps[displayTimestamps.length - 1];
+        });
+    }
     //
     // MODEL SETUP (variables)
     //
@@ -153,13 +166,26 @@ ImperialController = function($scope, $location, storageService) {
         // else do nothing; someone else owns it
     };
     
+    $scope.loadGame = function(startTime) {
+        storageService.getGame(startTime, function(game){
+            deserializeGame(game);
+            for (var i = 0; i < $scope.players.length; i++) {
+                updatePlayerStats($scope.players[i]);
+            }
+            updateRanking();
+            updatePlayersInFirst();
+        });
+    };
+    
     //
     // JavaScript browser and Cordova hooks
     //
     var isCordova = document.location.protocol === "file:";
 
     var saveBeforeExit = function() {
-        storageService.saveGame(serializeGame());
+        if (storageService.isAvailable()) {
+            storageService.saveGame(serializeGame());
+        }
     };
 
     if (isCordova) {
@@ -178,6 +204,8 @@ ImperialController = function($scope, $location, storageService) {
         
         var players = [];
         
+        var countriesToSharesToPlayers = {};
+        
         for (var i = 0; i < $scope.players.length; i++) {
             var player = $scope.players[i];
             players.push({
@@ -185,6 +213,16 @@ ImperialController = function($scope, $location, storageService) {
                 name   : player.name,
                 cash   : player.cash
             });
+            
+            for (var j = 0; j < player.shares.length; j++) {
+                var share = player.shares[j];
+                
+                if (!countriesToSharesToPlayers[share.country.id]) {
+                    countriesToSharesToPlayers[share.country.id] = {};
+                }
+                
+                countriesToSharesToPlayers[share.country.id][share.value] = {playerId : player.id};
+            }
         }
         
         var countries = [];
@@ -194,10 +232,18 @@ ImperialController = function($scope, $location, storageService) {
             
             var shares = [];
             
-            for (var j = 0; j < country.shares.length ;j++) {
-                var share = country.shares[i];
+            for (var k = 0; k < country.shares.length; k++) {
+                var thisShare = country.shares[k];
                 
-                shares.push(share.player && share.player.id);
+                if (countriesToSharesToPlayers[country.id] && 
+                        countriesToSharesToPlayers[country.id][thisShare.value] &&
+                        countriesToSharesToPlayers[country.id][thisShare.value].playerId >= 0) {
+                    shares.push({playerId : countriesToSharesToPlayers[country.id][thisShare.value].playerId});
+                } else {
+                    shares.push(null);
+                }
+                
+                
             }
             
             countries.push({
@@ -213,7 +259,7 @@ ImperialController = function($scope, $location, storageService) {
         };
     }
     
-    deserializeGame = function(game) {
+    function deserializeGame(game) {
         
         $scope.startTime = game.startTime;
         
@@ -236,23 +282,24 @@ ImperialController = function($scope, $location, storageService) {
         
         for (i = 0; i < $scope.countries.length; i++) {
             var country = $scope.countries[i];
-            
             var savedCountry = game.countries[i];
+            
+            country.multiplier = savedCountry.multiplier;
             
             for (var j = 0; j < country.shares.length; j++) {
                 var share = country.shares[j];
                 
-                var savedSharePlayerId = savedCountry.shares[j];
+                var savedShare = savedCountry.shares[j];
                 
-                if (savedSharePlayerId) {
-                    share.player = $scope.players[savedSharePlayerId];
+                if (savedShare) {
+                    share.player = $scope.players[savedShare.playerId];
                     share.player.shares.push(share);
                 } else {
                     share.player = null;
                 }
             }
         }
-    };
+    }
     
     /**
      * Calculates the score and the sum of the shares per country of all players
