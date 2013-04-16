@@ -94,10 +94,10 @@
 		</tr>
 	</table>
 	<div ng-hide="unranked" style="text-align:center;width:100%;margin-top:15px;">
-		<div>
+		<div class="pull-right">
 			<span class="label label-info">{{!unranked && (!playersInFirst.tieGame && playersInFirst.players[0] + ' wins!' || (playersInFirst.players.join(' and ') + ' tie for first!')) || ''}}</span>
 		</div>
-		<div ng-show="playersInFirst.tieGame">
+		<div class="pull-left" style="text-align:left;margin: 15px 15px 0 15px;" ng-show="playersInFirst.tieGame">
 			Ties are broken based on the number of shares in the highest-valued country, followed by shares in the next-highest-valued country, etc.
 		</div>
 	</div>
