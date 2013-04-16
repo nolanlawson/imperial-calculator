@@ -29,7 +29,7 @@
         
         var TIMESTAMPS_KEY = 'saved-game-timestamps';
         var LAWNCHAIR_NAME = 'imperial';
-        var lawnchair = Lawnchair(LAWNCHAIR_NAME, function(){console.log('set up lawnchair!');});
+        var lawnchair = Lawnchair(LAWNCHAIR_NAME, function(){});
         
         return {
             saveGame : function(game) {

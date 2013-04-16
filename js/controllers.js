@@ -25,6 +25,8 @@ ImperialController = function($scope, $location, storageService) {
     $scope.startTime = new Date().getTime();
     storageService.getSavedGameTimestamps(function(savedGameTimestamps) {
         $scope.savedGameTimestamps = savedGameTimestamps;
+        $scope.lastGameTimestamp = savedGameTimestamps && savedGameTimestamps.length > 0 && 
+                new Date(savedGameTimestamps[savedGameTimestamps.length - 1]).toString();
     });
     
     //
@@ -211,7 +213,7 @@ ImperialController = function($scope, $location, storageService) {
         };
     }
     
-    function deserializeGame(game) {
+    deserializeGame = function(game) {
         
         $scope.startTime = game.startTime;
         
@@ -250,7 +252,7 @@ ImperialController = function($scope, $location, storageService) {
                 }
             }
         }
-    }
+    };
     
     /**
      * Calculates the score and the sum of the shares per country of all players
