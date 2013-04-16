@@ -2,6 +2,7 @@
  * AngularJS Controllers for the Imperial Score Calculator app.
  */
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, noarg:true, noempty:true, nonew:true, undef:true, strict:true, browser:true */
+/*global moment*/
 /*export ImperialController */
 
 var ImperialController;
@@ -33,9 +34,12 @@ ImperialController = function($scope, $location, storageService) {
             for (var i = 0; i < savedGameTimestamps.length; i++) {
                 var savedGameTimestamp = savedGameTimestamps[i];
             
+                var date = new Date(savedGameTimestamp);
+                var display = moment(date).format('h:mm a [on] MMMM Do, YYYY');
+            
                 displayTimestamps.push({
                     timestamp : savedGameTimestamp, 
-                    display   : new Date(savedGameTimestamp).toString()
+                    display   : display
                 });
             }
             $scope.savedGameTimestamps = displayTimestamps;
@@ -183,7 +187,7 @@ ImperialController = function($scope, $location, storageService) {
     var isCordova = document.location.protocol === "file:";
 
     var saveBeforeExit = function() {
-        if (storageService.isAvailable()) {
+        if (storageService.isAvailable() && isGameModified()) {
             storageService.saveGame(serializeGame());
         }
     };
@@ -199,6 +203,33 @@ ImperialController = function($scope, $location, storageService) {
     //
     // Internally used functions
     //
+    
+    function isGameModified() {
+        
+        for (var i = 0; i < $scope.players.length; i++) {
+            var player = $scope.players[i];
+            
+            if (player.cash > 0) {
+                return true;
+            }
+            
+            if (player.name) {
+                return true;
+            }
+            
+            for (var j = 0; j < player.shares.length; j++) {
+                return true;
+            }
+        }
+        
+        for (var k = 0; k < $scope.countries.length; k++) {
+            if ($scope.countries[k].multiplier > 0) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
     function serializeGame() {
         
