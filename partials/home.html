@@ -5,6 +5,14 @@
 		<a href='http://boardgamegeek.com/boardgame/24181/imperial' target='_blank'>Imperial</a> is a board game created by Mac Gerdts.<br>
 		Use this tool to calculate players' scores at the end of the game.
 	</p>
+	
+	<div class="row" ng-show="savedGameTimestamps.length > 0">
+		<div class="alert alert-info span9">
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		  <strong>Welcome back!</strong> It looks like you have some saved games : {{savedGameTimestamps.join(', ')}}.
+		</div>
+	</div>
+	
 	<div class="row">
 		<div class="span3">
 			<h3>Countries</h3>
