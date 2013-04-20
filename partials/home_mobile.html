@@ -39,7 +39,7 @@
 		<tr>
 			<td align="center" class="contains-dropdown" ng-repeat="country in countries">
 				<div style="width: 100%;" class="btn-group">
-					<button style="width: 100%;" role="button" class="btn" data-toggle="modal" href='#{{country.id}}-modal' type="button">
+					<button style="width: 100%;" class="btn" data-toggle="modal" href='#{{country.id}}-modal' type="button">
 							<span class="multiplier">×{{country.multiplier}}</span>
 					</button>
 					<div id="{{country.id}}-modal" class="modal hide" tabindex="-1" role="dialog" aria-hidden="true">
@@ -73,7 +73,7 @@
 				</div>
 			</td>
 		</tr>
-		<tbody ng-repeat="player in players" style="border-top: 15px solid white;">
+		<tbody ng-repeat="player in players" style="border-top: 30px solid white;">
 			<tr>
 				<td class="famfamfam famfamfam-user_gray" style="padding-left:24px;" colspan="3" valign="center" align="center">
 					<input style="width:100%;display: block;box-sizing: border-box;height: 100%;" type="text" autocapitalize="on" ng-model="player.name" placeholder="Player {{player.id + 1}}"/>
@@ -140,7 +140,7 @@
 
 			</tr>
 		</tbody>
-		<tr ng-show="players.length < MAX_NUM_PLAYERS" style="border-top: 15px solid white;">
+		<tr ng-show="players.length < MAX_NUM_PLAYERS" style="border-top: 30px solid white;">
 			<td colspan="6">
 				<button class="span2 btn btn-primary add-player" ng-click="addPlayer()" href='#'>
 							Add Player
