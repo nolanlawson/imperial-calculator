@@ -154,7 +154,7 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
         
         var serializedGame = paramGame(gameObj);
         
-        var link = $location.$$absUrl.replace(/[^\/]+$/,'share/' + serializedGame);
+        var link = $location.$$absUrl.replace($location.$$url,'/share/' + serializedGame);
         
         window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
     };
