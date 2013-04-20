@@ -343,9 +343,7 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
             
             country.multiplier = parseInt(game.multipliers[i], 10);
 
-
-
-            if (game.countriesToSharesToPlayers[country.id]) {
+            if (game.countriesToSharesToPlayers && game.countriesToSharesToPlayers[country.id]) {
                 var sharesToPlayers = game.countriesToSharesToPlayers[country.id];
 
                 for (var j = 0; j < country.shares.length; j++) {
