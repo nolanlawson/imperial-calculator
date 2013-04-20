@@ -3,13 +3,18 @@
  */
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, noarg:true, noempty:true, nonew:true, undef:true, strict:true, browser:true */
 /*global moment $*/
-/*export ImperialController */
+/*export ImperialController, TabController */
 
-var ImperialController;
+var ImperialController, TabController;
 
 (function(){
 
 "use strict";
+
+TabController = function($scope, $location) {
+    $scope.tabs = [{id : 'home', title : 'Home'},{id : 'about', title : 'About'}, {id : 'contact', title: 'Contact'}];
+    $scope.selectedTabId = $location.path() === '/contact' ? 'contact' : $location.path() === '/about' ? 'about' : 'home';
+};
 
 ImperialController = function($scope, $location, $routeParams, storageService) {
     
@@ -49,9 +54,6 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
     //
     // MODEL SETUP (variables)
     //
-    
-    $scope.tabs = [{id : 'home', title : 'Home'},{id : 'about', title : 'About'}, {id : 'contact', title: 'Contact'}];
-    $scope.selectedTabId = $location.path() === '/contact' ? 'contact' : $location.path() === '/about' ? 'about' : 'home';
     
     $scope.possibleMultipliers = [0,1,2,3,4,5];
     
@@ -483,5 +485,6 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
 };
 
 ImperialController.$inject = ['$scope', '$location', '$routeParams', 'storageService'];
+TabController.$inject = ['$scope', '$location'];
 
 })();
