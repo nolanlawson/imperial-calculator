@@ -12,3 +12,22 @@
 .flag-gb{ background-position: 0 -63px;} 
 .flag-it{ background-position: 0 -84px;} 
 .flag-ru{ background-position: 0 -105px;}
+
+.flag-48-at {
+    background:url(../img/at-48.png) no-repeat center left
+}
+.flag-48-it {
+    background:url(../img/it-48.png) no-repeat center left
+}
+.flag-48-fr {
+    background:url(../img/fr-48.png) no-repeat center left
+}
+.flag-48-de {
+    background:url(../img/de-48.png) no-repeat center left
+}
+.flag-48-ru {
+    background:url(../img/ru-48.png) no-repeat center left
+}
+.flag-48-gb {
+    background:url(../img/gb-48.png) no-repeat center left
+}
