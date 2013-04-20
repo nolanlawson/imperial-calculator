@@ -120,17 +120,6 @@
 							</table>
 						  </div>
 						</div><!-- modal -->
-						<!--
-						<ul class="dropdown-menu dropdown-menu-small">
-							<li ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player, selected: share.player == player}">
-								<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">
-									<i ng-class="{true: 'icon-ok', false: 'icon-none'}[share.player == player]"></i>
-									<span>{{share.value}} mil</span>
-								</a>
-							</li>
-							<li class="divider"></li>
-							<li class="share-done"><a href='#'>Done</a></li>
-						</ul>-->
 					</div>
 				</td>
 				<td valign="center" align="center">
@@ -143,17 +132,17 @@
 		<tr ng-show="players.length < MAX_NUM_PLAYERS" style="border-top: 30px solid white;">
 			<td colspan="6">
 				<button class="span2 btn btn-primary add-player" ng-click="addPlayer()" href='#'>
-							Add Player
+							Add player
 				</button>
 			</td>
 		</tr>
 	</table>
-	<div ng-hide="unranked" style="text-align:center;width:100%;border-top: 30px solid white; border-bottom: 30px solid white;">
-		<div class="pull-right">
-			<span class="label label-info">{{!unranked && (!playersInFirst.tieGame && playersInFirst.players[0] + ' wins!' || (playersInFirst.players.join(' and ') + ' tie for first!')) || ''}}</span>
-		</div>
-		<div class="pull-left" style="text-align:left;margin: 15px 15px 0 15px;" ng-show="playersInFirst.tieGame">
-			Ties are broken based on the number of shares in the highest-valued country, followed by shares in the next-highest-valued country, etc.
+	
+	<div ng-hide="unranked"  class="saved-games-alert alert alert-info" style="margin-top:30px;">
+		<strong>{{!unranked && (!playersInFirst.tieGame && playersInFirst.players[0] + ' wins!' || (playersInFirst.players.join(' and ') + ' tie for first!')) || ''}}</strong> <span ng-show="playersInFirst.tieGame">
+			Ties are broken based on the number of shares in the highest-valued country, followed by shares in the next-highest-valued country, etc.</span>
+		<div style="text-align:right;padding-top:10px">
+			<button type="button" class="btn btn-primary" href="#" ng-click="promptShare()" >Share this game</button>
 		</div>
 	</div>
 
