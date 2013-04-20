@@ -38,16 +38,39 @@
 		</tr>
 		<tr>
 			<td align="center" class="contains-dropdown" ng-repeat="country in countries">
-				<div style="width: 100%;" class="btn-group contains-dropdown">
-					<button style="width: 100%;" class="btn dropdown-toggle" data-toggle="dropdown" href='#' type="button">
+				<div style="width: 100%;" class="btn-group">
+					<button style="width: 100%;" role="button" class="btn" data-toggle="modal" href='#{{country.id}}-modal' type="button">
 							<span class="multiplier">×{{country.multiplier}}</span>
 							<span class="caret"></span>
 					</button>
-					<ul class="dropdown-menu dropdown-menu-small">
-						<li ng-repeat="possibleMultiplier in possibleMultipliers">
-							<a href='#' ng-click="country.multiplier = possibleMultiplier">×{{possibleMultiplier}}</a>
-						</li>
-					</ul>
+					<div id="{{country.id}}-modal" class="modal hide" tabindex="-1" role="dialog" aria-hidden="true">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						
+					    <h3 id="myModalLabel"><img ng-src="img/{{country.id}}-48.png" style="margin-right:5px;"/>{{country.name}}</h3>
+					  </div>
+					  <div class="modal-body">
+					    <div class="btn-group btn-group-vertical btn-xlarge">
+							 <button ng-class="{'btn-info': country.multiplier == possibleMultiplier}" class="btn btn-xlarge" style="width:100%;" ng-repeat="possibleMultiplier in possibleMultipliers"
+								href='#' ng-click='country.multiplier = possibleMultiplier'>×{{possibleMultiplier}}</button>
+						</div>
+					  </div>
+					  <div class="modal-footer">
+						<table width="100%" class="footer-fixed">
+							<tr>
+								<td width="33%">
+					    			<button ng-class="{'disabled': $index == 0 }" class="btn" onclick="if ($(this).hasClass('disabled')) {return;}$('#{{country.id}}-modal').modal('hide');$('#{{countries[$index - 1].id}}-modal').modal('show');">Previous</button>
+								</td width="34%">
+								<td>
+					    			<button class="btn btn-primary" data-dismiss="modal">Done</button>
+								</td>
+								<td width="33%">
+									<button ng-class="{'disabled' : $index == countries.length - 1}"class="btn" onclick="if ($(this).hasClass('disabled')) {return;}$('#{{country.id}}-modal').modal('hide');$('#{{countries[$index + 1].id}}-modal').modal('show');">Next</button>
+								</td>
+							</tr>
+						</table>
+					  </div>
+					</div>
 				</div>
 			</td>
 		</tr>
@@ -112,5 +135,6 @@
 	<div style="min-height:20px"></div>
 
 </div><!-- /container -->
+</div>
 </body>
 </html>
