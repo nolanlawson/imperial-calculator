@@ -69,7 +69,7 @@
 							</tr>
 						</table>
 					  </div>
-					</div>
+					</div><!-- modal -->
 				</div>
 			</td>
 		</tr>
@@ -91,9 +91,36 @@
 			<tr>
 				<td align="center" class="contains-dropdown" ng-repeat="country in countries">
 					<div style="width: 100%;" class="btn-group contains-dropdown"> 
-						<button style="width: 100%;" href='#' class="btn dropdown-toggle" data-toggle="dropdown">{{player.sumSharesPerCountry[country.id] || 0}}
-							<span class="caret"></span>
+						<button style="width: 100%;" href='#{{player.id}}-{{country.id}}-modal' class="btn" data-toggle="modal">{{player.sumSharesPerCountry[country.id] || 0}}
 						</button>
+						<div id="{{player.id}}-{{country.id}}-modal" class="modal hide" tabindex="-1" role="dialog" aria-hidden="true">
+						  <div class="modal-header">
+						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						    <h3 style="background:url(img/{{country.id}}-48.png) no-repeat center left">
+							{{player.name || 'Player ' + (player.id + 1)}} ({{player.sumSharesPerCountry[country.id] || 0}} mil)</h3>
+						  </div>
+						  <div class="modal-body">
+						    <div class="btn-group btn-group-vertical btn-xlarge">
+								 <button ng-class="{'disabled': share.player != null && share.player != player, 'btn-info': share.player == player}" class="btn btn-xlarge" style="width:100%;" ng-repeat="share in country.shares" href='#' ng-click='toggleShareInPlayer(player, share);'>{{share.value}} mil</button>
+							</div>
+						  </div>
+						  <div class="modal-footer">
+							<table width="100%" class="footer-fixed">
+								<tr>
+									<td width="33%">
+						    			<button ng-class="{'disabled': $index == 0 }" class="btn" onclick="if ($(this).hasClass('disabled')) {return;}$('#{{player.id}}-{{country.id}}-modal').modal('hide');$('#{{player.id}}-{{countries[$index - 1].id}}-modal').modal('show');">Previous</button>
+									</td width="34%">
+									<td>
+						    			<button class="btn btn-primary" data-dismiss="modal">Done</button>
+									</td>
+									<td width="33%">
+										<button ng-class="{'disabled' : $index == countries.length - 1}"class="btn" onclick="if ($(this).hasClass('disabled')) {return;}$('#{{player.id}}-{{country.id}}-modal').modal('hide');$('#{{player.id}}-{{countries[$index + 1].id}}-modal').modal('show');">Next</button>
+									</td>
+								</tr>
+							</table>
+						  </div>
+						</div><!-- modal -->
+						<!--
 						<ul class="dropdown-menu dropdown-menu-small">
 							<li ng-repeat="share in country.shares" ng-class="{disabled: share.player != null && share.player != player, selected: share.player == player}">
 								<a href='#' ng-click="toggleShareInPlayer(player, share); $event.preventDefault(); $event.stopPropagation()">
@@ -103,7 +130,7 @@
 							</li>
 							<li class="divider"></li>
 							<li class="share-done"><a href='#'>Done</a></li>
-						</ul>
+						</ul>-->
 					</div>
 				</td>
 				<td valign="center" align="center">
