@@ -100,8 +100,8 @@
 							{{player.name || 'Player ' + (player.id + 1)}} ({{player.sumSharesPerCountry[country.id] || 0}} mil)</h3>
 						  </div>
 						  <div class="modal-body">
-						    <div class="btn-group btn-group-vertical btn-xlarge">
-								 <button ng-class="{'disabled': share.player != null && share.player != player, 'btn-info': share.player == player}" class="btn btn-xlarge" style="width:100%;" ng-repeat="share in country.shares" href='#' ng-click='toggleShareInPlayer(player, share);'>{{share.value}} mil</button>
+						    <div class="btn-group btn-group-vertical btn-large">
+								 <button ng-class="{'disabled': share.player != null && share.player != player, 'btn-info': share.player == player}" class="btn btn-large" style="width:100%;" ng-repeat="share in country.shares" href='#' ng-click='toggleShareInPlayer(player, share);'>{{share.value}} mil</button>
 							</div>
 						  </div>
 						  <div class="modal-footer">
