@@ -34,9 +34,22 @@ GameController = function($scope, $location, $routeParams, storageService) {
         
         var serializedGame = $scope.$parent.paramGame(gameObj);
         
-        var link = $location.$$absUrl.replace($location.$$url,'/share/' + serializedGame);
+        var isCordova = document.location.protocol === "file:";
         
-        window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
+        var link = isCordova ?
+                ('http://apps.nolanlawson.com/imperial-calculator/#/share/' + serializedGame) :
+                ($location.$$absUrl.replace($location.$$url,'/share/' + serializedGame));
+        
+        if (window.plugins && window.plugins.share) {
+            // share plugin for Android
+            
+            window.plugins.share.show({
+                subject: 'Share',
+                text: 'link'
+            });
+        } else {
+            window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
+        }
     };
     
     $scope.addPlayer = function(){
