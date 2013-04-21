@@ -7,12 +7,12 @@
 	</p>
 	
 	<div class="row">
-		<div class="saved-games-alert alert alert-info span7 fade in" ng-show="savedGameSummaries.length > 0 && savedGameSummaries[0].startTime != startTime">
+		<div id="saved-games-alert" class="alert alert-info span7 fade in" ng-show="savedGameSummaries.length > 0 && savedGameSummaries[0].startTime != startTime">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<strong>Welcome back!</strong> It looks like you were working on a game at {{formatDate(savedGameSummaries[0],'h:mm a [on] MMMM Do, YYYY')}}.
 			<div style="padding-top:10px">
 				<button type="button" class="btn pull-right" href='#saved-games-modal' data-toggle="modal">See all <span class="caret"></span></button>
-				<button type="button" class="btn btn-primary pull-right" href="#" onclick="$('.saved-games-alert').hide();" ng-click="loadGame(savedGameSummaries[0])">Resume this game</button>
+				<button type="button" class="btn btn-primary pull-right" href="#" onclick="$('#saved-games-alert').hide();" ng-click="loadGame(savedGameSummaries[0])">Resume this game</button>
 				
 			</div>
 		</div>
@@ -123,7 +123,7 @@
 	    <div class="btn-group btn-group-vertical btn-large">
 		
 			 <button ng-class="{'disabled': startTime == savedGameSummary.startTime}" class="btn btn-large" style="width:100%;" ng-repeat="savedGameSummary in savedGameSummaries"
-				href='#' onclick="$('.saved-games-alert').hide();" data-dismiss="modal" ng-click='loadGame(savedGameSummary)'>{{formatDate(savedGameSummary,'DD MMMM, YYYY [at] h:mm a')}} with {{getNumPlayers(savedGameSummary)}} players</button>
+				href='#' onclick="$('#saved-games-alert').hide();" data-dismiss="modal" ng-click='loadGame(savedGameSummary)'>{{formatDate(savedGameSummary,'DD MMMM, YYYY [at] h:mm a')}} with {{getNumPlayers(savedGameSummary)}} players</button>
 		</div>
 	  </div>
 	  <div class="modal-footer">
