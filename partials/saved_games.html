@@ -12,7 +12,7 @@
 		<div style="width:100%;text-align:center;">
 			<div class="btn-group btn-group-vertical btn-large btn-large-main">
 	
-				 <a ng-class="{'disabled': startTime == savedGameSummary.startTime}" class="btn btn-large" style="width:100%;" ng-repeat="savedGameSummary in savedGameSummaries" href='#/load/{{savedGameSummary}}'>{{formatDate(savedGameSummary,'DD/MMM/YYYY h:mm a')}} with {{getNumPlayers(savedGameSummary)}} players</a>
+				 <a ng-class="{'disabled': startTime == savedGameSummary.startTime}" class="btn btn-large" style="width:100%;" ng-repeat="savedGameSummary in savedGameSummaries" href='#/load/{{savedGameSummary}}'>{{formatDate(savedGameSummary,'DD/MMM/YYYY hh:mm a')}} with {{getNumPlayers(savedGameSummary)}} players</a>
 			</div>
 		</div>
 	  </div>
