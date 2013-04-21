@@ -20,11 +20,9 @@ var ImperialModule;
             templateUrl: homePage
         }).
         when('/about', {
-            controller: 'ImperialController',
             templateUrl: 'partials/about.html'
         }).
         when('/contact', {
-            controller: 'ImperialController',
             templateUrl: 'partials/contact.html'
         }).
         when('/share/:serializedGame', {

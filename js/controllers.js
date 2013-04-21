@@ -11,13 +11,10 @@ var ImperialController, TabController;
 
 "use strict";
 
-TabController = function($scope, $location) {
+TabController = function($scope, $location, storageService) {
     $scope.tabs = [{id : 'home', title : 'Home'},{id : 'about', title : 'About'}, {id : 'contact', title: 'Contact'}];
     $scope.selectedTabId = $location.path() === '/contact' ? 'contact' : $location.path() === '/about' ? 'about' : 'home';
-};
 
-ImperialController = function($scope, $location, $routeParams, storageService) {
-    
     //
     // CONSTANTS
     //
@@ -51,6 +48,7 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
             $scope.lastGameTimestamp = displayTimestamps.length > 0 && displayTimestamps[displayTimestamps.length - 1];
         });
     }
+    
     //
     // MODEL SETUP (variables)
     //
@@ -79,15 +77,7 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
             thisCountry.shares.push({ value : j, country : thisCountry});
         }
     }
-    
-    //
-    // "Share" feature
-    //
-    
-    if ($routeParams.serializedGame) {
-        loadGame(deparamGame($routeParams.serializedGame));
-    }
-    
+
     //
     // Watches
     //
@@ -145,66 +135,13 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
     }
     
     //
-    // click/change functions
-    //
-    
-    $scope.promptShare = function() {
-        
-        var gameObj = serializeGame();
-        
-        var serializedGame = paramGame(gameObj);
-        
-        var link = $location.$$absUrl.replace($location.$$url,'/share/' + serializedGame);
-        
-        window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
-    };
-    
-    $scope.addPlayer = function(){
-        $scope.players.push({
-            id     : $scope.players.length,
-            name   : '',
-            shares : [],
-            cash   : 0,
-            rank   : {},
-            sumSharesPerCountry : {}
-        });
-    };
-    
-    $scope.toggleShareInPlayer = function(player, share) {
-        
-        if (!share.player) {
-            // nobody owns it yet, so add it
-            share.player = player;
-            player.shares.push(share);
-        } else if (share.player === player) {
-            // already own it, so delete it
-            share.player = null;
-            
-            // stupid javascript array.remove(obj) implementation
-            for (var i = 0; i < player.shares.length; i++) {
-                if (player.shares[i] === share) {
-                    player.shares = player.shares.slice(0, i).concat(player.shares.slice(i + 1, player.shares.length));
-                    break;
-                }
-            }
-        }
-        // else do nothing; someone else owns it
-    };
-    
-    $scope.loadGame = function(startTime) {
-        storageService.getGame(startTime, function(game){
-            loadGame(game);
-        });
-    };
-    
-    //
     // JavaScript browser and Cordova hooks
     //
     var isCordova = document.location.protocol === "file:";
 
     var saveBeforeExit = function() {
         if (storageService.isAvailable() && isGameModified()) {
-            storageService.saveGame(serializeGame());
+            storageService.saveGame($scope.serializeGame());
         }
     };
 
@@ -220,7 +157,7 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
     // Internally used functions
     //
     
-    function deparamGame(str) {
+    $scope.deparamGame = function(str) {
         // make the url string shorter
         return $.deparam(str.
             replace(/__c/g, 'countriesToSharesToPlayers').
@@ -229,9 +166,9 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
             replace(/__m/g, 'multipliers').
             replace(/__s/g, 'startTime')
             );
-    }
+    };
     
-    function paramGame(game) {
+    $scope.paramGame = function(game) {
         // make the url string shorter
         return $.param(game).
             replace(/countriesToSharesToPlayers/g, '__c').
@@ -239,16 +176,16 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
             replace(/players/g, '__ps').
             replace(/multipliers/g, '__m').
             replace(/startTime/g, '__s');
-    }
+    };
     
-    function loadGame(game) {
-        deserializeGame(game);
+    $scope.loadGame = function(game) {
+        $scope.deserializeGame(game);
         for (var i = 0; i < $scope.players.length; i++) {
             updatePlayerStats($scope.players[i]);
         }
         updateRanking();
         updatePlayersInFirst();
-    }
+    };
     
     function isGameModified() {
         
@@ -277,7 +214,7 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
         return false;
     }
     
-    function serializeGame() {
+    $scope.serializeGame = function() {
         
         var players = [];
         
@@ -315,9 +252,9 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
             countriesToSharesToPlayers : countriesToSharesToPlayers,
             players                    : players
         };
-    }
+    };
     
-    function deserializeGame(game) {
+    $scope.deserializeGame = function(game) {
         
         $scope.startTime = game.startTime;
         
@@ -343,25 +280,22 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
             
             country.multiplier = parseInt(game.multipliers[i], 10);
 
-            if (game.countriesToSharesToPlayers && game.countriesToSharesToPlayers[country.id]) {
-                var sharesToPlayers = game.countriesToSharesToPlayers[country.id];
-
-                for (var j = 0; j < country.shares.length; j++) {
-                    var share = country.shares[j];
-                    
-                    var savedShare = sharesToPlayers[share.value];
-                    
-                    if (savedShare) {
-                        share.player = $scope.players[savedShare.playerId];
-                        share.player.shares.push(share);
-                    } else {
-                        share.player = null;
-                    }
+            for (var j = 0; j < country.shares.length; j++) {
+                var share = country.shares[j];
+                
+                if (game.countriesToSharesToPlayers && 
+                        game.countriesToSharesToPlayers[country.id] &&
+                        game.countriesToSharesToPlayers[country.id][share.value]) {
+                            
+                    var savedShare = game.countriesToSharesToPlayers[country.id][share.value];
+                    share.player = $scope.players[savedShare.playerId];
+                    share.player.shares.push(share);
+                } else {
+                    share.player = null;
                 }
             }
-            
         }
-    }
+    };
     
     /**
      * Calculates the score and the sum of the shares per country of all players
@@ -480,9 +414,80 @@ ImperialController = function($scope, $location, $routeParams, storageService) {
             tieGame : (players.length > 1)
         };
     }
+
+
+};
+
+ImperialController = function($scope, $location, $routeParams, storageService) {
+
+    
+    //
+    // "Share" feature
+    //
+    
+    if ($routeParams.serializedGame) {
+        $scope.$parent.loadGame($scope.$parent.deparamGame($routeParams.serializedGame));
+    }
+    
+
+    
+    //
+    // click/change functions
+    //
+    
+    $scope.promptShare = function() {
+        
+        var gameObj = $scope.$parent.serializeGame();
+        
+        var serializedGame = $scope.$parent.paramGame(gameObj);
+        
+        var link = $location.$$absUrl.replace($location.$$url,'/share/' + serializedGame);
+        
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
+    };
+    
+    $scope.addPlayer = function(){
+        $scope.$parent.players.push({
+            id     : $scope.players.length,
+            name   : '',
+            shares : [],
+            cash   : 0,
+            rank   : {},
+            sumSharesPerCountry : {}
+        });
+    };
+    
+    $scope.toggleShareInPlayer = function(player, share) {
+        
+        if (!share.player) {
+            // nobody owns it yet, so add it
+            share.player = player;
+            player.shares.push(share);
+        } else if (share.player === player) {
+            // already own it, so delete it
+            share.player = null;
+            
+            // stupid javascript array.remove(obj) implementation
+            for (var i = 0; i < player.shares.length; i++) {
+                if (player.shares[i] === share) {
+                    player.shares = player.shares.slice(0, i).concat(player.shares.slice(i + 1, player.shares.length));
+                    break;
+                }
+            }
+        }
+        // else do nothing; someone else owns it
+    };
+    
+    $scope.loadGame = function(startTime) {
+        storageService.getGame(startTime, function(game){
+            $scope.$parent.loadGame(game);
+        });
+    };
+    
+
 };
 
 ImperialController.$inject = ['$scope', '$location', '$routeParams', 'storageService'];
-TabController.$inject = ['$scope', '$location'];
+TabController.$inject = ['$scope', '$location', 'storageService'];
 
 })();
