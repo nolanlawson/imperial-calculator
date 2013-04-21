@@ -28,19 +28,19 @@ TabController = function($scope, $location, storageService) {
     
     $scope.startTime = new Date().getTime();
     if (storageService.isAvailable()) {
-        storageService.getSavedGameTimestamps(function(savedGameTimestamps) {
-            if (!savedGameTimestamps) {
+        storageService.getGameSummaries(function(gameSummaries) {
+            if (!gameSummaries) {
                 return;
             }
             var displayTimestamps = [];
-            for (var i = 0; i < savedGameTimestamps.length; i++) {
-                var savedGameTimestamp = savedGameTimestamps[i];
+            for (var i = 0; i < gameSummaries.length; i++) {
+                var gameSummary = gameSummaries[i];
             
-                var date = new Date(parseInt(savedGameTimestamp, 10));
+                var date = new Date(gameSummary.startTime);
                 var display = moment(date).format('h:mm a [on] MMMM Do, YYYY');
             
                 displayTimestamps.push({
-                    timestamp : savedGameTimestamp, 
+                    timestamp : gameSummary.startTime, 
                     display   : display
                 });
             }

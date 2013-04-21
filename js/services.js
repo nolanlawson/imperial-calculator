@@ -7,7 +7,7 @@
     
 ImperialModule.service('storageService', function() {
     
-    var TIMESTAMPS_KEY = 'timestamps';
+    var TIMESTAMPS_KEY = 'summaries';
     
     function get(key) {
         return JSON.parse(localStorage.getItem(key));
@@ -22,8 +22,14 @@ ImperialModule.service('storageService', function() {
             
             var savedGameTimestamps = get(TIMESTAMPS_KEY) || [];
             
-            savedGameTimestamps.push(game.startTime);
-            savedGameTimestamps.sort();
+            var playerSummaries = [];
+            for (var i = 0; i < game.players.length; i++) {
+                var player = game.players[i];
+                playerSummaries.push(player.name);
+            }
+            
+            savedGameTimestamps.push({startTime : game.startTime, players : playerSummaries});
+            savedGameTimestamps.sort(function(left, right){return left.startTime - right.startTime;});
             set(TIMESTAMPS_KEY, savedGameTimestamps);
             set(game.startTime, game);
         },
@@ -32,7 +38,7 @@ ImperialModule.service('storageService', function() {
             onResult(get(startTime));
         },
         
-        getSavedGameTimestamps : function(onResult) {
+        getGameSummaries : function(onResult) {
             onResult(get(TIMESTAMPS_KEY));
         },
         
