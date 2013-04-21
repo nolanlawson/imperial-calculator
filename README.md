@@ -10,7 +10,7 @@ License
 [WTFPL][1], although attribution would be nice.
 
 Overview
-===================
+------------
 
 End-of-game score calculator for the board game Imperial.
 
