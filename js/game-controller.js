@@ -44,8 +44,8 @@ GameController = function($scope, $location, $routeParams, storageService) {
             // share plugin for Android
             
             window.plugins.share.show({
-                subject: 'Share',
-                text: 'link'
+                subject: "Imperial game scores",
+                text: link
             });
         } else {
             window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
