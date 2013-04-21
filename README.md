@@ -23,4 +23,4 @@ The Android source code is [here][3].
 
 [1]: http://sam.zoy.org/wtfpl/
 [2]: http://apps.nolanlawson.com/imperial-calculator
-[3]: http://github.com/nolanlawson/imperial-calculator/android
+[3]: http://github.com/nolanlawson/imperial-calculator-android
