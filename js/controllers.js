@@ -29,23 +29,7 @@ TabController = function($scope, $location, storageService) {
     $scope.startTime = new Date().getTime();
     if (storageService.isAvailable()) {
         storageService.getGameSummaries(function(gameSummaries) {
-            if (!gameSummaries) {
-                return;
-            }
-            var displayTimestamps = [];
-            for (var i = 0; i < gameSummaries.length; i++) {
-                var gameSummary = gameSummaries[i];
-            
-                var date = new Date(gameSummary.startTime);
-                var display = moment(date).format('h:mm a [on] MMMM Do, YYYY');
-            
-                displayTimestamps.push({
-                    timestamp : gameSummary.startTime, 
-                    display   : display
-                });
-            }
-            $scope.savedGameTimestamps = displayTimestamps;
-            $scope.lastGameTimestamp = displayTimestamps.length > 0 && displayTimestamps[displayTimestamps.length - 1];
+            $scope.savedGameSummaries = gameSummaries;
         });
     }
     
@@ -156,6 +140,14 @@ TabController = function($scope, $location, storageService) {
     //
     // Internally used functions
     //
+    
+    $scope.getNumPlayers = function(timestamp) {
+        return storageService.getNumPlayers(timestamp);
+    };
+    
+    $scope.formatDate = function(timestamp, format) {
+        return moment(new Date(timestamp)).format(format);
+    };
     
     $scope.deparamGame = function(str) {
         // make the url string shorter

@@ -7,7 +7,7 @@
     
 ImperialModule.service('storageService', function() {
     
-    var TIMESTAMPS_KEY = 'summaries';
+    var SUMMARIES_KEY = 'summaries';
     
     function get(key) {
         return JSON.parse(localStorage.getItem(key));
@@ -20,17 +20,25 @@ ImperialModule.service('storageService', function() {
     return {
         saveGame : function(game) {
             
-            var savedGameTimestamps = get(TIMESTAMPS_KEY) || [];
+            var summaries = get(SUMMARIES_KEY) || [];
             
-            var playerSummaries = [];
-            for (var i = 0; i < game.players.length; i++) {
-                var player = game.players[i];
-                playerSummaries.push(player.name);
+            summaries.push(game.startTime);
+            
+            // uniq
+            var summarySet = {};
+            for (var i = 0; i < summaries.length ; i++) {
+                summarySet[summaries[i]] = true;
+            }
+            summaries = [];
+            for (var key in summarySet) {
+                summaries.push(parseInt(key, 10));
             }
             
-            savedGameTimestamps.push({startTime : game.startTime, players : playerSummaries});
-            savedGameTimestamps.sort(function(left, right){return left.startTime - right.startTime;});
-            set(TIMESTAMPS_KEY, savedGameTimestamps);
+            // sort by timestamp descending
+            summaries.sort(function(left, right){return right - left;});
+            
+            set(SUMMARIES_KEY, summaries);
+            set(game.startTime + '-numPlayers', game.players.length);
             set(game.startTime, game);
         },
         
@@ -39,7 +47,11 @@ ImperialModule.service('storageService', function() {
         },
         
         getGameSummaries : function(onResult) {
-            onResult(get(TIMESTAMPS_KEY));
+            onResult(get(SUMMARIES_KEY));
+        },
+        
+        getNumPlayers : function(startTime) {
+            return get(startTime + '-numPlayers');
         },
         
         checkedIsAvailable : null,
