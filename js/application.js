@@ -19,11 +19,18 @@ var ImperialModule;
             controller: 'GameController',
             templateUrl: homePage
         }).
+        when('/saved-games', {
+            templateUrl: 'partials/saved_games.html'
+        }).
         when('/about', {
             templateUrl: 'partials/about.html'
         }).
         when('/contact', {
             templateUrl: 'partials/contact.html'
+        }).
+        when('/load/:startTime', {
+            controller: 'GameController',
+            templateUrl: homePage
         }).
         when('/share/:serializedGame', {
             controller: 'GameController',

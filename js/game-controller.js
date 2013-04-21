@@ -14,12 +14,24 @@ var GameController;
 GameController = function($scope, $location, $routeParams, storageService) {
 
     
+    $scope.$parent.selectedTabId = 'home';
+    
     //
     // "Share" feature
     //
     
     if ($routeParams.serializedGame) {
         $scope.$parent.loadGame($scope.$parent.deparamGame($routeParams.serializedGame));
+    }
+    
+    //
+    // "Load" feature
+    //
+    
+    if ($routeParams.startTime) {
+        storageService.getGame($routeParams.startTime, function(game){
+            $scope.$parent.loadGame(game);
+        });
     }
     
 

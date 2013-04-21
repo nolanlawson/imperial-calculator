@@ -12,8 +12,18 @@ var MainController;
 "use strict";
 
 MainController = function($scope, $location, storageService) {
-    $scope.tabs = [{id : 'home', title : 'Home'},{id : 'about', title : 'About'}, {id : 'contact', title: 'Contact'}];
-    $scope.selectedTabId = $location.path() === '/contact' ? 'contact' : $location.path() === '/about' ? 'about' : 'home';
+    
+    
+    $scope.tabs = [
+            {id : 'home', title : 'Home'},
+            {id : 'saved-games', title: 'Saved games'},
+            {id : 'about', title : 'About'}, 
+            {id : 'contact', title: 'Contact'}
+            ];
+    $scope.selectedTabId = $location.path() === '/contact' ? 'contact' : 
+            $location.path() === '/about' ? 'about' : 
+            $location.path() === '/saved-games' ? 'saved-games' :
+            'home';
 
     //
     // CONSTANTS
@@ -140,6 +150,13 @@ MainController = function($scope, $location, storageService) {
     //
     // Internally used functions
     //
+    
+    $scope.showSavedGamesAlert = function() {
+        // last game is less than two hours old
+        return !isGameModified() && 
+                $scope.savedGameSummaries.length > 0 && 
+                $scope.savedGameSummaries[0] > (new Date().getTime() - 7200000);
+    };
     
     $scope.getNumPlayers = function(timestamp) {
         return storageService.getNumPlayers(timestamp);
