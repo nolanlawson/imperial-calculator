@@ -16,7 +16,7 @@ var ImperialModule;
 
         $routeProvider.
         when('/home', {
-            controller: 'ImperialController',
+            controller: 'GameController',
             templateUrl: homePage
         }).
         when('/about', {
@@ -26,7 +26,7 @@ var ImperialModule;
             templateUrl: 'partials/contact.html'
         }).
         when('/share/:serializedGame', {
-            controller: 'ImperialController',
+            controller: 'GameController',
             templateUrl: homePage
         }).
         otherwise({
