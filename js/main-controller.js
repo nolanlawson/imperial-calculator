@@ -154,6 +154,7 @@ MainController = function($scope, $location, storageService) {
     $scope.showSavedGamesAlert = function() {
         // last game is less than two hours old
         return !isGameModified() && 
+                $scope.savedGameSummaries &&
                 $scope.savedGameSummaries.length > 0 && 
                 $scope.savedGameSummaries[0] > (new Date().getTime() - 7200000);
     };
