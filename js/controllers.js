@@ -36,7 +36,7 @@ TabController = function($scope, $location, storageService) {
             for (var i = 0; i < savedGameTimestamps.length; i++) {
                 var savedGameTimestamp = savedGameTimestamps[i];
             
-                var date = new Date(savedGameTimestamp);
+                var date = new Date(parseInt(savedGameTimestamp, 10));
                 var display = moment(date).format('h:mm a [on] MMMM Do, YYYY');
             
                 displayTimestamps.push({
