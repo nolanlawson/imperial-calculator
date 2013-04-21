@@ -256,7 +256,7 @@ TabController = function($scope, $location, storageService) {
     
     $scope.deserializeGame = function(game) {
         
-        $scope.startTime = game.startTime;
+        $scope.startTime = parseInt(game.startTime, 10);
         
         var players = [];
         
