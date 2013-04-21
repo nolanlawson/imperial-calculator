@@ -4,7 +4,7 @@
  *
  */
 .flag {
-background : url(../img/flags.png) no-repeat left center;
+background : url(../img/flags.png) no-repeat center left;
 }
 .flag-at {
 background-position: 0 0;

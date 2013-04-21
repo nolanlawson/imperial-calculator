@@ -37,10 +37,16 @@
 		<div class="span3 tmpl-country">
 			<div class="country-container btn-group">
 				<button class="btn country country-btn-grp dropdown-toggle span3" data-toggle="dropdown" href='#' type="button">
+						
+						<span class="pull-left">
 						<i class="flag flag-{{country.id}} icon-align-left"></i>
 						<span>{{country.name}}</span>
-						<span class="caret pull-right"></span>
-						<span class="multiplier pull-right">&nbsp;×{{country.multiplier}}&nbsp;</span>
+						
+						</span>
+						<span class="pull-right">
+							<span>&nbsp;×{{country.multiplier}}&nbsp;</span>
+							<span class="caret"></span>
+						</span>
 				</button>
 				<ul class="dropdown-menu pull-right">
 					<li ng-repeat="possibleMultiplier in possibleMultipliers">
