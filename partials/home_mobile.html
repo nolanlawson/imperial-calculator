@@ -139,11 +139,13 @@
 		</tr>
 	</table>
 	
-	<div ng-hide="unranked"  class="saved-games-alert alert alert-info" style="margin-top:30px;">
-		<strong>{{!unranked && (!playersInFirst.tieGame && playersInFirst.players[0] + ' wins!' || (playersInFirst.players.join(' and ') + ' tie for first!')) || ''}}</strong> <span ng-show="playersInFirst.tieGame">
-			Ties are broken based on the number of shares in the highest-valued country, followed by shares in the next-highest-valued country, etc.</span>
-		<div style="text-align:right;padding-top:10px">
-			<button type="button" class="btn btn-primary" href="#" ng-click="promptShare()" >Share this game</button>
+	<div ng-hide="unranked" style="border-bottom:30px solid white;border-top: 30px solid white;">
+		<div class="saved-games-alert alert alert-info">
+			<strong>{{!unranked && (!playersInFirst.tieGame && playersInFirst.players[0] + ' wins!' || (playersInFirst.players.join(' and ') + ' tie for first!')) || ''}}</strong> <span ng-show="playersInFirst.tieGame">
+				Ties are broken based on the number of shares in the highest-valued country, followed by shares in the next-highest-valued country, etc.</span>
+			<div style="text-align:right;padding-top:10px">
+				<button type="button" class="btn btn-primary" href="#" ng-click="promptShare()" >Share this game</button>
+			</div>
 		</div>
 	</div>
 	
