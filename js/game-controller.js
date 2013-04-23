@@ -43,6 +43,14 @@ GameController = function($scope, $location, $routeParams, storageService) {
     // click/change functions
     //
     
+    $scope.isShareOwned = function(share, player) {
+        return (share.player && share.player.id === player.id) ? true : false;
+    };
+    
+    $scope.isShareOwnedByOther = function(share, player) {
+        return (share.player && share.player.id !== player.id) ? true : false;
+    };
+    
     $scope.showSavedGamesAlert = function() {
         
         // last game is less than two hours old

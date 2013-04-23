@@ -103,7 +103,7 @@
 						  </div>
 						  <div class="modal-body">
 						    <div class="btn-group btn-group-vertical btn-large">
-								 <button ng-class="{'disabled': share.player != null && share.player != player, 'btn-info': share.player == player}" class="btn btn-large" style="width:100%;" ng-repeat="share in country.shares" href='#' ng-click='toggleShareInPlayer(player, share);'>{{share.value}} mil</button>
+								 <button ng-class="{'disabled': isShareOwnedByOther(share, player), 'btn-info': isShareOwned(share, player)}" class="btn btn-large" style="width:100%;" ng-repeat="share in country.shares" href='#' ng-click='toggleShareInPlayer(player, share);'>{{share.value}} mil</button>
 							</div>
 						  </div>
 						  <div class="modal-footer">
