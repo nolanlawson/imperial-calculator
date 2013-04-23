@@ -160,6 +160,9 @@ MainController = function($scope, $location, storageService) {
         window.onbeforeunload = saveBeforeExit;
     }
     
+    // automatically save the game every 30 seconds
+    setInterval(saveBeforeExit ,30000);
+    
     //
     // Internally used functions
     //
