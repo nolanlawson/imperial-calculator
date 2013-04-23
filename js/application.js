@@ -20,6 +20,7 @@ var ImperialModule;
             templateUrl: homePage
         }).
         when('/saved-games', {
+            controller: 'SavedGamesController',
             templateUrl: 'partials/saved_games.html'
         }).
         when('/about', {

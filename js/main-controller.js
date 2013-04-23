@@ -13,6 +13,16 @@ var MainController;
 
 MainController = function($scope, $location, storageService) {
     
+    //
+    // CONSTANTS
+    //
+    
+    $scope.APP_VERSION = '1.0.1';
+    $scope.MAX_NUM_PLAYERS = 6;
+    
+    //
+    // Navigational tabs
+    //
     
     $scope.tabs = [
             {id : 'home', title : 'Home'},
@@ -25,23 +35,12 @@ MainController = function($scope, $location, storageService) {
             $location.path() === '/saved-games' ? 'saved-games' :
             'home';
 
-    //
-    // CONSTANTS
-    //
-    
-    $scope.APP_VERSION = '1.0';
-    $scope.MAX_NUM_PLAYERS = 6; 
     
     //
     // PERSISTENCE SETUP (variables)
     //
     
     $scope.startTime = new Date().getTime();
-    if (storageService.isAvailable()) {
-        storageService.getGameSummaries(function(gameSummaries) {
-            $scope.savedGameSummaries = gameSummaries;
-        });
-    }
     
     //
     // MODEL SETUP (variables)
@@ -80,6 +79,9 @@ MainController = function($scope, $location, storageService) {
     
     function createPlayerWatcher(playerId) { // avoids jshint warning about functions in loops
         return function() {
+            if ($scope.players.length > 0) {
+                $scope.gameModified = true;
+            }
             if (playerId < $scope.players.length) {
                 updatePlayerStats($scope.players[playerId]);
                 updateRanking();
@@ -94,13 +96,24 @@ MainController = function($scope, $location, storageService) {
     
     // watch player name changes - just need to update the "so and so wins" flavor text
     
-    $scope.$watch('players[0].name + players[1].name + players[2].name + players[3].name + players[4].name + players[5].name', updatePlayersInFirst);
+    $scope.$watch('players[0].name + players[1].name + players[2].name + ' + 
+            'players[3].name + players[4].name + players[5].name', function(){
+                if ($scope.players.length > 0) {
+                    $scope.gameModified = true;
+                }
+                
+                updatePlayersInFirst();
+            });
     
     // watch country changes
     
     function createCountryWatcher(countryIdx) { // avoids jshint warning about functions in loops
         return function() {
             var country = $scope.countries[countryIdx];
+            
+            if (country.multiplier > 0) {
+                $scope.gameModified = true;
+            }
             
             // update player scores only for players who own shares in this country
             var updatedPlayers = {};
@@ -134,7 +147,7 @@ MainController = function($scope, $location, storageService) {
     var isCordova = document.location.protocol === "file:";
 
     var saveBeforeExit = function() {
-        if (storageService.isAvailable() && isGameModified()) {
+        if (storageService.isAvailable() && $scope.isGameModified()) {
             storageService.saveGame($scope.serializeGame());
         }
     };
@@ -150,14 +163,6 @@ MainController = function($scope, $location, storageService) {
     //
     // Internally used functions
     //
-    
-    $scope.showSavedGamesAlert = function() {
-        // last game is less than two hours old
-        return !isGameModified() && 
-                $scope.savedGameSummaries &&
-                $scope.savedGameSummaries.length > 0 && 
-                $scope.savedGameSummaries[0] > (new Date().getTime() - 7200000);
-    };
     
     $scope.getNumPlayers = function(timestamp) {
         return storageService.getNumPlayers(timestamp);
@@ -189,6 +194,10 @@ MainController = function($scope, $location, storageService) {
     };
     
     $scope.loadGame = function(game) {
+        
+        // save the current game the user was working on, just in case
+        saveBeforeExit();
+        
         $scope.deserializeGame(game);
         for (var i = 0; i < $scope.players.length; i++) {
             updatePlayerStats($scope.players[i]);
@@ -197,32 +206,10 @@ MainController = function($scope, $location, storageService) {
         updatePlayersInFirst();
     };
     
-    function isGameModified() {
+    $scope.isGameModified = function() {
         
-        for (var i = 0; i < $scope.players.length; i++) {
-            var player = $scope.players[i];
-            
-            if (player.cash > 0) {
-                return true;
-            }
-            
-            if (player.name) {
-                return true;
-            }
-            
-            for (var j = 0; j < player.shares.length; j++) {
-                return true;
-            }
-        }
-        
-        for (var k = 0; k < $scope.countries.length; k++) {
-            if ($scope.countries[k].multiplier > 0) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
+        return $scope.gameModified;
+    };
     
     $scope.serializeGame = function() {
         

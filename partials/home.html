@@ -10,10 +10,10 @@
 		<!-- saved games alert - show when the last saved game is less than 2 hours old -->
 		<div id="saved-games-alert" class="alert alert-info span7 fade in" ng-show="showSavedGamesAlert()">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>Welcome back!</strong> It looks like you were working on a game at {{formatDate(savedGameSummaries[0],'h:mm a [on] MMMM Do, YYYY')}}.
+			<strong>Welcome back!</strong> It looks like you were working on a game at {{formatDate(lastGameSummary,'h:mm a [on] MMMM Do, YYYY')}}.
 			<div style="padding-top:10px">
 				<a type="button" class="btn pull-right" href='#/saved-games' ng-click="$parent.selectedTabId='saved-games'">See all <span class="caret"></span></a>
-				<button type="button" class="btn btn-primary pull-right" href="#" onclick="$('#saved-games-alert').hide();" ng-click="loadGame(savedGameSummaries[0])">Resume this game</button>
+				<button type="button" class="btn btn-primary pull-right" href="#" onclick="$('#saved-games-alert').hide();" ng-click="loadGame(lastGameSummary)">Resume this game</button>
 				
 			</div>
 		</div>

@@ -46,8 +46,8 @@ ImperialModule.service('storageService', function() {
             onResult(get(startTime));
         },
         
-        getGameSummaries : function(onResult) {
-            onResult(get(SUMMARIES_KEY));
+        getGameSummaries : function() {
+            return get(SUMMARIES_KEY) || [];
         },
         
         getNumPlayers : function(startTime) {

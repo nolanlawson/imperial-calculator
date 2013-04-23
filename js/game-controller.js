@@ -16,6 +16,9 @@ GameController = function($scope, $location, $routeParams, storageService) {
     
     $scope.$parent.selectedTabId = 'home';
     
+    var gameSummaries = storageService.getGameSummaries();
+    $scope.lastGameSummary = gameSummaries && gameSummaries.length > 0 && gameSummaries[0];
+    
     //
     // "Share" feature
     //
@@ -39,6 +42,13 @@ GameController = function($scope, $location, $routeParams, storageService) {
     //
     // click/change functions
     //
+    
+    $scope.showSavedGamesAlert = function() {
+        
+        // last game is less than two hours old
+        return !$scope.$parent.isGameModified() && 
+                $scope.lastGameSummary > (new Date().getTime() - 7200000);
+    };
     
     $scope.promptShare = function() {
         
