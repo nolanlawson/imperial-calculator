@@ -2,13 +2,11 @@
  * Main Angular definitions for the Imperial Score Calculator
  */
 /*global angular navigator*/
-/*export ImperialModule*/
-var ImperialModule;
 (function() {
 
     "use strict";
 
-    ImperialModule = angular.module('imperial', []).
+    angular.module('imperial', []).
     config(['$routeProvider', function($routeProvider) {
 
         var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);

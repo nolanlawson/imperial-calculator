@@ -2,16 +2,15 @@
  * GameController for the Imperial Score Calculator app.
  */
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, noarg:true, noempty:true, nonew:true, undef:true, strict:true, browser:true */
-/*global */
-/*export GameController */
-
-var GameController;
+/*global angular*/
 
 (function(){
 
 "use strict";
 
-GameController = function($scope, $location, $routeParams, storageService) {
+angular.module('imperial').controller('GameController', 
+        ['$scope', '$location', '$routeParams', 'storageService', 
+        function($scope, $location, $routeParams, storageService) {
 
     
     $scope.$parent.selectedTabId = 'home';
@@ -121,8 +120,6 @@ GameController = function($scope, $location, $routeParams, storageService) {
     };
     
 
-};
-
-GameController.$inject = ['$scope', '$location', '$routeParams', 'storageService'];
+}]);
 
 })();

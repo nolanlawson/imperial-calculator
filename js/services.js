@@ -1,11 +1,11 @@
 /*
  * AngularJS services.
  */
-/*global localStorage ImperialModule*/
+/*global localStorage angular*/
 (function(){
 "use strict";
     
-ImperialModule.service('storageService', function() {
+angular.module('imperial').service('storageService', function() {
     
     var SUMMARIES_KEY = 'summaries';
     

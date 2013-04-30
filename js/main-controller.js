@@ -2,16 +2,16 @@
  * Main AngularJS Controller for the Imperial Score Calculator app.
  */
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, noarg:true, noempty:true, nonew:true, undef:true, strict:true, browser:true */
-/*global moment $*/
-/*export MainController */
+/*global moment angular $*/
 
-var MainController;
 
 (function(){
 
 "use strict";
 
-MainController = function($scope, $location, storageService) {
+angular.module('imperial').controller('MainController', 
+        ['$scope', '$location', 'storageService', 
+        function($scope, $location, storageService) {
     
     //
     // CONSTANTS
@@ -416,8 +416,6 @@ MainController = function($scope, $location, storageService) {
     }
 
 
-};
-
-MainController.$inject = ['$scope', '$location', 'storageService'];
+}]);
 
 })();
