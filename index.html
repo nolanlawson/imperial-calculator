@@ -230,7 +230,7 @@
 		<link rel="shortcut icon" href="favicon.ico">
 	</head>
 	<body ng-controller="MainController">
-		<div class="navbar navbar-inverse navbar-fixed-top">
+		<div ng-controller="TabController" class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
 					<div type="div" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">Menu</div>
@@ -269,6 +269,7 @@
 		<script src="js/main-controller.js"></script>
 		<script src="js/game-controller.js"></script>
 		<script src="js/saved-games-controller.js"></script>
+		<script src="js/tab-controller.js"></script>
 		<script src="js/lib/bootstrap.min.js"></script>
 	</body>
 </html>

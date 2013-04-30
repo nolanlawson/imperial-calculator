@@ -21,22 +21,6 @@ angular.module('imperial').controller('MainController',
     $scope.MAX_NUM_PLAYERS = 6;
     
     //
-    // Navigational tabs
-    //
-    
-    $scope.tabs = [
-            {id : 'home', title : 'Home'},
-            {id : 'saved-games', title: 'Saved games'},
-            {id : 'about', title : 'About'}, 
-            {id : 'contact', title: 'Contact'}
-            ];
-    $scope.selectedTabId = $location.path() === '/contact' ? 'contact' : 
-            $location.path() === '/about' ? 'about' : 
-            $location.path() === '/saved-games' ? 'saved-games' :
-            'home';
-
-    
-    //
     // PERSISTENCE SETUP (variables)
     //
     
