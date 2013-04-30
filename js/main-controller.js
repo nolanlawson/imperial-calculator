@@ -224,7 +224,7 @@ angular.module('imperial').controller('MainController',
             var player = $scope.players[i];
             players.push({
                 name   : player.name,
-                cash   : player.cash
+                cash   : player.cash || 0
             });
             
             for (var j = 0; j < player.shares.length; j++) {
@@ -267,7 +267,7 @@ angular.module('imperial').controller('MainController',
                 id     : i,
                 name   : player.name,
                 shares : [],
-                cash   : parseInt(player.cash, 10),
+                cash   : parseInt(player.cash || 0, 10),
                 rank   : {},
                 sumSharesPerCountry : {}
             });

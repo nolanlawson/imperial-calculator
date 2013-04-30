@@ -86,7 +86,6 @@ angular.module('imperial').controller('GameController',
             id     : $scope.players.length,
             name   : '',
             shares : [],
-            cash   : 0,
             rank   : {},
             sumSharesPerCountry : {}
         });
