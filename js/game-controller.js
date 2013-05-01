@@ -11,9 +11,6 @@
 angular.module('imperial').controller('GameController', 
         ['$scope', '$location', '$routeParams', 'storageService', 
         function($scope, $location, $routeParams, storageService) {
-
-    
-    $scope.$parent.selectedTabId = 'home';
     
     var gameSummaries = storageService.getGameSummaries();
     $scope.lastGameSummary = gameSummaries && gameSummaries.length > 0 && gameSummaries[0];
