@@ -20,6 +20,14 @@ The webapp itself is hosted [here][2].
 
 The Android source code is [here][3].
 
+Testing
+-------------
+
+Install Karma and simply run:
+
+```
+karma start test/karma.conf.js
+```
 
 [1]: http://sam.zoy.org/wtfpl/
 [2]: http://apps.nolanlawson.com/imperial-calculator
