@@ -21,3 +21,11 @@
 footer {
     margin: 5em 2em;
 }
+
+.player-input {
+    width: 100% !important;
+}
+
+.sum-span {
+    text-align : center !important;
+}
