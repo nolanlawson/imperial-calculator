@@ -60,13 +60,13 @@
 						<table width="100%" class="footer-fixed">
 							<tr>
 								<td width="33%">
-					    			<button ng-class="{'disabled': $index == 0 }" class="btn" onclick="if ($(this).hasClass('disabled')) {return;}$('#{{country.id}}-modal').modal('hide');$('#{{countries[$index - 1].id}}-modal').modal('show');">Previous</button>
+					    			<button ng-class="{'disabled': $first }" class="btn btn-modal-prev">Previous</button>
 								</td>
 								<td width="34%">
 					    			<button class="btn btn-primary" data-dismiss="modal">Done</button>
 								</td>
 								<td width="33%">
-									<button ng-class="{'disabled' : $index == countries.length - 1}"class="btn" onclick="if ($(this).hasClass('disabled')) {return;}$('#{{country.id}}-modal').modal('hide');$('#{{countries[$index + 1].id}}-modal').modal('show');">Next</button>
+									<button ng-class="{'disabled' : ($last && players.length == 0)}"class="btn btn-modal-next">Next</button>
 								</td>
 							</tr>
 						</table>
@@ -110,13 +110,13 @@
 							<table width="100%" class="footer-fixed">
 								<tr>
 									<td width="33%">
-						    			<button ng-class="{'disabled': $index == 0 }" class="btn" onclick="if ($(this).hasClass('disabled')) {return;}$('#{{player.id}}-{{country.id}}-modal').modal('hide');$('#{{player.id}}-{{countries[$index - 1].id}}-modal').modal('show');">Previous</button>
+						    			<button class="btn btn-modal-prev">Previous</button>
 									</td>
 									<td width="34%">
 						    			<button class="btn btn-primary" data-dismiss="modal">Done</button>
 									</td>
 									<td width="33%">
-										<button ng-class="{'disabled' : $index == countries.length - 1}"class="btn" onclick="if ($(this).hasClass('disabled')) {return;}$('#{{player.id}}-{{country.id}}-modal').modal('hide');$('#{{player.id}}-{{countries[$index + 1].id}}-modal').modal('show');">Next</button>
+										<button ng-class="{'disabled' : $last && $parent.$last}" class="btn btn-modal-next">Next</button>
 									</td>
 								</tr>
 							</table>
@@ -127,8 +127,6 @@
 				<td valign="center" align="center">
 					<strong>{{player.score}} mil</strong>
 				</td>				
-				
-
 			</tr>
 		</tbody>
 		<tr ng-show="players.length < MAX_NUM_PLAYERS" style="border-top: 30px solid white;">
