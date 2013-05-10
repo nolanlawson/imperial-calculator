@@ -233,9 +233,16 @@
 		<div ng-controller="TabController" class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<div type="div" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">Menu</div>
-					<a class="brand main-logo" href="#/home" ng-click="selectedTabId = 'home'"><span class="hidden-phone">Imperial Score Calculator</span>
-					<span class="visible-phone">Imperial Calculator</span></a>
+					<div type="div" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						
+					</div>
+					<a class="brand main-logo" href="#/home" ng-click="selectedTabId = 'home'">
+						<span class="hidden-phone">Imperial Score Calculator</span>
+						<span class="visible-phone">Imperial Calculator</span>
+					</a>
 					<div class="ng-cloak nav-collapse collapse">
 						<ul class="nav">
                             <li ng-click="$parent.selectedTabId = tab.id" ng-repeat="tab in tabs" ng-class="{active: tab.id == $parent.selectedTabId}">
