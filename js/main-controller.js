@@ -17,7 +17,7 @@ angular.module('imperial').controller('MainController',
     // CONSTANTS
     //
     
-    $scope.APP_VERSION = '1.0.3';
+    $scope.APP_VERSION = '1.0.4';
     $scope.MAX_NUM_PLAYERS = 6;
     
     //
