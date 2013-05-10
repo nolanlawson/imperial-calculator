@@ -34,11 +34,13 @@
     }
     
     $(document).
-    delegate('.btn-modal-next', 'click', function() {
+    delegate('.btn-modal-next', 'click', function(e) {
         handleClick(this, '.btn-modal-next', true);
+        e.preventDefault();
     }).
-    delegate('.btn-modal-prev', 'click', function() {
+    delegate('.btn-modal-prev', 'click', function(e) {
         handleClick(this, '.btn-modal-prev', false);
+        e.preventDefault();
     });
     
     
