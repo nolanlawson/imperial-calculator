@@ -12,6 +12,7 @@
 		<link href="css/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="css/flags.css" rel="stylesheet" type="text/css">
 		<link href="css/countries.css" rel="stylesheet" type="text/css">
+		<link rel="shortcut icon" href="favicon.ico"/>
 		<style>
 		/** ensure ng-cloaked elements aren't shown while the app is loading, @see ng-cloak in Angular API **/
 		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -77,6 +78,11 @@
 					width:50%;
 				}
 				
+				.modal {
+					max-height: 95%;
+					overflow-y: scroll;
+				}
+				
 		 }
 		  
 		/* Landscape phones and down */
@@ -108,6 +114,11 @@
 			
 			.btn-group.btn-large.btn-group-vertical.btn-large-main {
 				width:80%;
+			}
+			
+			.modal {
+				max-height: 95%;
+				overflow-y: scroll;
 			}
 		}
 		
