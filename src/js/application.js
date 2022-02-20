@@ -16,8 +16,12 @@
         return x;
     }
 
-    angular.module('imperial', []).
-    config(['$routeProvider', function($routeProvider) {
+    angular.module('imperial', ['ngRoute'])
+    .config(['$locationProvider', function($locationProvider) {
+        // angular <1.6.0 compat https://stackoverflow.com/a/41213016
+        $locationProvider.hashPrefix('');
+    }])
+    .config(['$routeProvider', function($routeProvider) {
 
         var isMobile = getWindowWidth() <= 767; // same rules as bootstrap
         var homePage = isMobile ? 'home_mobile.html' : 'home.html';
