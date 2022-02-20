@@ -20,30 +20,34 @@
     config(['$routeProvider', function($routeProvider) {
 
         var isMobile = getWindowWidth() <= 767; // same rules as bootstrap
-        var homePage = isMobile ? 'partials/home_mobile.html' : 'partials/home.html';
+        var homePage = isMobile ? 'home_mobile.html' : 'home.html';
+
+        function partial (name) {
+            return document.head.querySelector('[data-name="' + name +'"]').getAttribute('href');
+        }
 
         $routeProvider.
         when('/home', {
             controller: 'GameController',
-            templateUrl: homePage
+            templateUrl: partial(homePage)
         }).
         when('/saved-games', {
             controller: 'SavedGamesController',
-            templateUrl: 'partials/saved_games.html'
+            templateUrl: partial('saved_games.html')
         }).
         when('/about', {
-            templateUrl: 'partials/about.html'
+            templateUrl: partial('about.html')
         }).
         when('/contact', {
-            templateUrl: 'partials/contact.html'
+            templateUrl: partial('contact.html')
         }).
         when('/load/:startTime', {
             controller: 'GameController',
-            templateUrl: homePage
+            templateUrl: partial(homePage)
         }).
         when('/share/:serializedGame', {
             controller: 'GameController',
-            templateUrl: homePage
+            templateUrl: partial(homePage)
         }).
         otherwise({
             redirectTo: '/home'
